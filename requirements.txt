@@ -1,0 +1,8 @@
+# Day 1 essentials (expand as we build agents)
+pandas>=2.2.0
+pyarrow>=15.0.0
+datasets>=3.0.0
+huggingface-hub>=0.24.0
+python-dotenv>=1.0.0
+pyyaml>=6.0.0
+tqdm>=4.66.0

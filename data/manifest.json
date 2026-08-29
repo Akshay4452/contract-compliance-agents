@@ -1,0 +1,38 @@
+{
+  "version": "0.1.0",
+  "project": "contract-compliance-agents",
+  "datasets": {
+    "cuad_v1": {
+      "purpose": "Contract inputs + clause-level gold labels for segmentation/extraction eval",
+      "location": "external",
+      "config_key": "cuad",
+      "stats": {
+        "contracts": 510,
+        "label_categories": 41,
+        "approx_labeled_spans": 13000
+      },
+      "usage": {
+        "dev": "Use 5-10 contracts while building agents",
+        "eval": "Run full 510 only in scheduled eval jobs (cost-controlled)"
+      }
+    },
+    "gdpr_en": {
+      "purpose": "Regulatory RAG corpus (articles, checklists, DPO Q&A)",
+      "hf_id": "AYI-NEDJIMI/gdpr-en",
+      "local_path": "data/regulations/gdpr-en/",
+      "usage": "Indexed for compliance agent retrieval"
+    },
+    "synthetic_golden": {
+      "purpose": "Hand-crafted violation cases where YOU define the answer",
+      "local_path": "data/golden/",
+      "status": "pending_day8"
+    }
+  },
+  "check_types_v1": [
+    "subprocessor",
+    "data_retention",
+    "breach_notification",
+    "liability_cap",
+    "termination_data_return"
+  ]
+}

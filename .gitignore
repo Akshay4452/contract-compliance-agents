@@ -1,0 +1,19 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+mlruns/
+.chroma/
+data/cache/
+data/processed/
+*.log
+.DS_Store
+Thumbs.db
+
+# Keep raw regulation downloads; do not commit large external CUAD copies
+data/external/
+CUAD_v1/

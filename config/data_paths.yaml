@@ -1,0 +1,11 @@
+# Point to your local CUAD download (do not duplicate 510 contracts into git)
+cuad:
+  root: "CUAD_v1"
+  contracts_txt_dir: "CUAD_v1/full_contract_txt"
+  master_clauses_csv: "CUAD_v1/master_clauses.csv"
+  squad_json: "CUAD_v1/CUAD_v1.json"
+
+gdpr:
+  # Downloaded by scripts/download_gdpr_corpus.py
+  hf_dataset: "AYI-NEDJIMI/gdpr-en"
+  local_json: "data/regulations/gdpr-en/train.json"
