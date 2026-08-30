@@ -9,3 +9,6 @@ gdpr:
   # Downloaded by scripts/download_gdpr_corpus.py
   hf_dataset: "AYI-NEDJIMI/gdpr-en"
   local_json: "data/regulations/gdpr-en/train.json"
+  chroma_dir: ".chroma/gdpr"
+  collection_name: "gdpr-en"
+  embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
