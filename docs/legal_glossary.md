@@ -1,4 +1,4 @@
-# Legal Glossary (Day 1 — 10 terms only)
+# Legal Glossary (Day 1–2)
 
 Plain-English definitions for this project. You are **not** becoming a lawyer; you are building a **first-pass reviewer**.
 
@@ -13,6 +13,7 @@ Plain-English definitions for this project. You are **not** becoming a lawyer; y
 | **Liability cap** | Maximum amount one party pays if something goes wrong | "Worst case, we only owe $10k" |
 | **Indemnification** | One party pays legal costs if the other gets sued because of them | "If we're sued because of your bug, you pay" |
 | **GDPR** | EU law on how personal data must be handled | Traffic rules, but for personal data |
+| **Data retention** | How long you may keep personal data, and deleting it when that period ends | Keep the CCTV tape 30 days, then wipe it |
 | **SOC 2** | Security audit framework (not a law) | A report card that says "this company secures data well" |
 
 ## What CUAD gives you
@@ -25,3 +26,5 @@ CUAD = **510 real contracts** where lawyers already highlighted important clause
 ## What GDPR corpus gives you
 
 The rule book your compliance agent searches — like looking up "what does GDPR say about subprocessors?"
+
+Day 2 RAG retrieves **these GDPR rules**, not CUAD contracts. CUAD is the contract set you will grade later.
