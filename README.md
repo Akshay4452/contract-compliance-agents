@@ -2,6 +2,10 @@
 
 Multi-agent contract review pipeline: segment clauses, check against GDPR corpus (RAG), verify citations, produce audit reports.
 
+## Plan
+
+The 14-day schedule (Days 1–2 done, Days 3–14 remaining) lives in [`docs/two_week_plan.md`](docs/two_week_plan.md). Use that file as the source of truth when picking up work.
+
 ## Day 1 status
 
 - [x] Project scaffold
