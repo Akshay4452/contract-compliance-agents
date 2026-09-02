@@ -1,0 +1,31 @@
+VENDOR SECURITY ADDENDUM
+
+This Vendor Security Addendum (the "Addendum") supplements the services agreement between Northline Analytics Ltd ("Customer") and Packetwell Hosting Ltd ("Vendor") dated 20 January 2026. If there is a conflict on security or data handling, this Addendum controls.
+
+1. SECURITY PROGRAM.
+
+Vendor shall maintain a written information security program aligned with SOC 2 Type II trust services criteria for security and availability. Upon request, Vendor shall provide Customer with its latest SOC 2 Type II report under NDA.
+
+2. ACCESS CONTROL.
+
+Vendor shall enforce unique user credentials, multi-factor authentication for remote access to systems that process Customer data, and least-privilege access reviews at least quarterly.
+
+3. SUBPROCESSORS AND THIRD-PARTY SHARING.
+
+Vendor shall not share Customer data with a third party except subprocessors approved under the DPA. Vendor shall flow down equivalent security obligations and remain responsible for subprocessors.
+
+4. INCIDENT RESPONSE.
+
+Vendor shall notify Customer of a security incident affecting Customer data within seventy-two (72) hours of confirmation, and shall reasonably cooperate in investigation and remediation.
+
+5. DATA RETURN ON EXIT.
+
+When the services end, Vendor shall, within thirty (30) days of Customer's written request, return Customer data in a standard format and then securely delete remaining copies, except as required by law.
+
+6. AUDIT RIGHTS.
+
+Customer may, not more than once per year, review Vendor's relevant policies and, where reasonably necessary, conduct an on-site or remote audit with fifteen (15) days' notice.
+
+7. LIABILITY.
+
+Nothing in this Addendum increases the liability cap in the main services agreement, except that Vendor's liability for a proven unauthorized disclosure of Customer data caused by Vendor's failure to meet Section 1 or Section 2 shall not be less than twelve (12) months of fees.

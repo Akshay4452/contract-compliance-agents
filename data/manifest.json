@@ -22,6 +22,12 @@
       "local_path": "data/regulations/gdpr-en/",
       "usage": "Indexed for compliance agent retrieval"
     },
+    "day3_templates": {
+      "purpose": "Dev contracts for segmentation (NDA, MSA, DPA) plus sample fallbacks when CUAD is absent",
+      "local_path": "data/templates/",
+      "samples_path": "data/samples/",
+      "clauses_json": "data/exercises/day3_segmentation/clauses.json"
+    },
     "synthetic_golden": {
       "purpose": "Hand-crafted violation cases where YOU define the answer",
       "local_path": "data/golden/",

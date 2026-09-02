@@ -1,0 +1,339 @@
+{
+  "document_count": 5,
+  "documents": [
+    {
+      "document_id": "nda-mutual",
+      "source_path": "/workspace/data/templates/nda_mutual.txt",
+      "source_kind": "template",
+      "clause_count": 7,
+      "clauses": [
+        {
+          "id": "c1",
+          "text": "MUTUAL NON-DISCLOSURE AGREEMENT\n\nThis Mutual Non-Disclosure Agreement (the \"Agreement\") is entered into as of 1 March 2026 (the \"Effective Date\") by and between Northline Analytics Ltd (\"Northline\") and Harbor Peak Systems Inc. (\"Harbor Peak\"). Each party may disclose Confidential Information to the other in connection with evaluating a potential software integration (the \"Purpose\").",
+          "start_hint": 0,
+          "title": "MUTUAL NON-DISCLOSURE AGREEMENT"
+        },
+        {
+          "id": "c2",
+          "text": "1. DEFINITIONS.\n\n\"Confidential Information\" means non-public information disclosed by a party (the \"Disclosing Party\") to the other (the \"Receiving Party\"), whether in writing, orally, or by inspection of materials, that is marked confidential or that a reasonable person would understand to be confidential given the nature of the information and the circumstances of disclosure. Confidential Information includes product roadmaps, customer lists, pricing, security architecture, and personal data shared for the Purpose.",
+          "start_hint": 388,
+          "title": "1. DEFINITIONS."
+        },
+        {
+          "id": "c3",
+          "text": "2. OBLIGATIONS.\n\nThe Receiving Party shall (a) use Confidential Information solely for the Purpose, (b) protect it using at least the same degree of care it uses for its own confidential information of like importance, and in no event less than reasonable care, and (c) not disclose it to third parties except to employees and contractors who have a need to know and are bound by written confidentiality obligations no less protective than this Agreement.",
+          "start_hint": 912,
+          "title": "2. OBLIGATIONS."
+        },
+        {
+          "id": "c4",
+          "text": "3. EXCLUSIONS.\n\nThe obligations in Section 2 do not apply to information that the Receiving Party can document (a) is or becomes public through no fault of the Receiving Party, (b) was rightfully in its possession without confidentiality duty, (c) is independently developed without use of Confidential Information, or (d) is rightfully received from a third party without restriction.",
+          "start_hint": 1369,
+          "title": "3. EXCLUSIONS."
+        },
+        {
+          "id": "c5",
+          "text": "4. TERM AND RETURN.\n\nThis Agreement continues for two (2) years from the Effective Date. Upon written request, or automatically upon expiry, the Receiving Party shall promptly return or securely destroy Confidential Information, except that one copy may be retained in backup systems if kept confidential and used only for legal compliance. Confidentiality obligations survive for three (3) years after termination, and indefinitely for trade secrets.",
+          "start_hint": 1756,
+          "title": "4. TERM AND RETURN."
+        },
+        {
+          "id": "c6",
+          "text": "5. NO LICENSE.\n\nNo license to any intellectual property is granted except the limited right to use Confidential Information for the Purpose. Each party retains all rights in its own information.",
+          "start_hint": 2209,
+          "title": "5. NO LICENSE."
+        },
+        {
+          "id": "c7",
+          "text": "6. GOVERNING LAW.\n\nThis Agreement is governed by the laws of England and Wales. The parties submit to the exclusive jurisdiction of the courts of London.\n\nIN WITNESS WHEREOF, the parties have executed this Agreement as of the Effective Date.",
+          "start_hint": 2405,
+          "title": "6. GOVERNING LAW."
+        }
+      ]
+    },
+    {
+      "document_id": "saas-msa",
+      "source_path": "/workspace/data/templates/saas_msa.txt",
+      "source_kind": "template",
+      "clause_count": 13,
+      "clauses": [
+        {
+          "id": "c1",
+          "text": "SOFTWARE AS A SERVICE MASTER SERVICES AGREEMENT\n\nThis Master Services Agreement (the \"Agreement\") is made as of 15 January 2026 between Cloudspan Technologies Ltd (\"Vendor\") and Riverbend Retail Group plc (\"Customer\"). Vendor will provide the hosted analytics platform described in an Order Form (the \"Service\") and Customer will pay the fees set out in that Order Form.",
+          "start_hint": 0,
+          "title": "SOFTWARE AS A SERVICE MASTER SERVICES AGREEMENT"
+        },
+        {
+          "id": "c2",
+          "text": "1. SERVICES.\n\nVendor shall make the Service available to Customer during the Subscription Term in accordance with this Agreement and the applicable Order Form. Vendor may use subprocessors to host and operate the Service, provided Vendor remains responsible for their performance. A current list of subprocessors is available at Vendor's trust site; Vendor shall give Customer thirty (30) days' prior written notice before appointing a new subprocessor that processes Customer Personal Data.",
+          "start_hint": 372,
+          "title": "1. SERVICES."
+        },
+        {
+          "id": "c3",
+          "text": "2. CUSTOMER DATA.\n\nCustomer retains all right, title, and interest in data submitted to the Service (\"Customer Data\"). Vendor shall process Customer Personal Data only as a processor on documented instructions from Customer, as further described in the Data Processing Addendum. Vendor shall not sell Customer Data.",
+          "start_hint": 865,
+          "title": "2. CUSTOMER DATA."
+        },
+        {
+          "id": "c4",
+          "text": "3. DATA RETENTION AND DELETION.\n\nDuring the Subscription Term, Customer Data is retained for as long as Customer keeps it in the Service. Within thirty (30) days after termination or expiry, Vendor shall delete Customer Data from production systems or return it in a commonly used machine-readable format, at Customer's written election, except for copies in encrypted backups which are overwritten on Vendor's standard backup cycle not to exceed ninety (90) days. Vendor shall not retain Customer Personal Data longer than necessary for the purposes of this Agreement.",
+          "start_hint": 1182,
+          "title": "3. DATA RETENTION AND DELETION."
+        },
+        {
+          "id": "c5",
+          "text": "4. FEES AND PAYMENT.\n\nCustomer shall pay the fees in each Order Form within thirty (30) days of invoice. Late amounts accrue interest at 1.5% per month or the maximum allowed by law, whichever is less. Fees are exclusive of taxes.",
+          "start_hint": 1753,
+          "title": "4. FEES AND PAYMENT."
+        },
+        {
+          "id": "c6",
+          "text": "5. TERM AND TERMINATION.\n\nThis Agreement starts on the Effective Date and continues for the Subscription Term. Either party may terminate for material breach if the breach remains uncured thirty (30) days after written notice. Upon termination, Customer shall stop using the Service. Vendor shall, at Customer's request, return or delete Customer Data as described in Section 3 and certify deletion in writing.",
+          "start_hint": 1985,
+          "title": "5. TERM AND TERMINATION."
+        },
+        {
+          "id": "c7",
+          "text": "6. CONFIDENTIALITY.\n\nEach party shall keep the other party's Confidential Information in confidence and use it only to perform this Agreement. These duties survive for three (3) years after termination.",
+          "start_hint": 2397,
+          "title": "6. CONFIDENTIALITY."
+        },
+        {
+          "id": "c8",
+          "text": "7. WARRANTIES.\n\nVendor warrants that the Service will perform materially in accordance with the documentation. Customer's exclusive remedy for a breach of this warranty is, at Vendor's option, re-performance or a pro-rata refund of prepaid fees for the non-conforming period.",
+          "start_hint": 2601,
+          "title": "7. WARRANTIES."
+        },
+        {
+          "id": "c9",
+          "text": "8. DISCLAIMER.\n\nEXCEPT AS EXPRESSLY STATED, THE SERVICE IS PROVIDED \"AS IS.\" VENDOR DISCLAIMS ALL IMPLIED WARRANTIES, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.",
+          "start_hint": 2878,
+          "title": "8. DISCLAIMER."
+        },
+        {
+          "id": "c10",
+          "text": "9. INDEMNIFICATION.\n\nVendor shall indemnify, defend, and hold harmless Customer against third-party claims that the Service, as provided by Vendor, infringes a patent, copyright, or trademark, and against claims arising from Vendor's unauthorized processing of Customer Personal Data. Customer shall indemnify Vendor against claims arising from Customer Data or Customer's misuse of the Service. The indemnifying party may control the defense, and the indemnified party shall reasonably cooperate. This is who pays legal costs if a third party sues because of the other party's product or data handling.",
+          "start_hint": 3080,
+          "title": "9. INDEMNIFICATION."
+        },
+        {
+          "id": "c11",
+          "text": "10. LIMITATION OF LIABILITY.\n\n10.1 Liability cap. Except for (a) a party's indemnification obligations under Section 9, (b) a party's breach of confidentiality, and (c) Customer's payment obligations, each party's total aggregate liability arising out of this Agreement shall not exceed the fees paid or payable by Customer to Vendor in the twelve (12) months immediately preceding the claim. That cap is the maximum payout if things go wrong.\n\n10.2 Excluded damages. Neither party shall be liable for indirect, incidental, special, consequential, or punitive damages, or for lost profits, lost revenue, or lost data, even if advised of the possibility of such damages.",
+          "start_hint": 3685,
+          "title": "10. LIMITATION OF LIABILITY."
+        },
+        {
+          "id": "c12",
+          "text": "11. BREACH NOTIFICATION.\n\nVendor shall notify Customer without undue delay, and in any event within seventy-two (72) hours of becoming aware of a personal data breach affecting Customer Personal Data, and shall provide information reasonably required for Customer to meet its own notification duties.",
+          "start_hint": 4356,
+          "title": "11. BREACH NOTIFICATION."
+        },
+        {
+          "id": "c13",
+          "text": "12. GENERAL.\n\nThis Agreement is the entire agreement on its subject matter. Amendments must be in writing and signed by both parties. Notices may be sent by email to the addresses on the Order Form. Governing law: England and Wales.",
+          "start_hint": 4658,
+          "title": "12. GENERAL."
+        }
+      ]
+    },
+    {
+      "document_id": "dpa-processor",
+      "source_path": "/workspace/data/templates/dpa_processor.txt",
+      "source_kind": "template",
+      "clause_count": 12,
+      "clauses": [
+        {
+          "id": "c1",
+          "text": "DATA PROCESSING ADDENDUM\n\nThis Data Processing Addendum (the \"DPA\") forms part of the Software as a Service Master Services Agreement between Cloudspan Technologies Ltd (\"Processor\") and Riverbend Retail Group plc (\"Controller\"). It applies when Processor processes Personal Data on behalf of Controller in the course of providing the Service.",
+          "start_hint": 0,
+          "title": "DATA PROCESSING ADDENDUM"
+        },
+        {
+          "id": "c2",
+          "text": "1. ROLES AND SCOPE.\n\nController is the controller and Processor is the processor of Personal Data described in Annex 1 (categories of data subjects, types of Personal Data, and processing purposes). Processor shall process Personal Data only on documented instructions from Controller, including with respect to transfers of Personal Data to a third country, unless required to do so by Union or Member State law.",
+          "start_hint": 345,
+          "title": "1. ROLES AND SCOPE."
+        },
+        {
+          "id": "c3",
+          "text": "2. SUBPROCESSORS.\n\nController grants a general authorization for Processor to engage subprocessors listed in Annex 2. Processor shall impose data protection terms on each subprocessor that are no less protective than this DPA. Processor shall give Controller at least thirty (30) days' prior notice of any intended addition or replacement of a subprocessor, and Controller may object on reasonable data-protection grounds. Processor remains fully liable for the subprocessor's performance.",
+          "start_hint": 760,
+          "title": "2. SUBPROCESSORS."
+        },
+        {
+          "id": "c4",
+          "text": "3. SECURITY.\n\nProcessor shall implement appropriate technical and organizational measures, including encryption in transit and at rest, access control, logging, and regular testing, to ensure a level of security appropriate to the risk.",
+          "start_hint": 1251,
+          "title": "3. SECURITY."
+        },
+        {
+          "id": "c5",
+          "text": "4. DATA SUBJECT RIGHTS.\n\nProcessor shall, taking into account the nature of the processing, assist Controller by appropriate technical and organizational measures, insofar as possible, in fulfilling Controller's obligations to respond to requests to exercise data subject rights under GDPR.",
+          "start_hint": 1489,
+          "title": "4. DATA SUBJECT RIGHTS."
+        },
+        {
+          "id": "c6",
+          "text": "5. PERSONAL DATA BREACH.\n\nProcessor shall notify Controller without undue delay after becoming aware of a personal data breach, and in any event within seventy-two (72) hours, providing the information reasonably available to Processor to help Controller meet Articles 33 and 34 GDPR.",
+          "start_hint": 1781,
+          "title": "5. PERSONAL DATA BREACH."
+        },
+        {
+          "id": "c7",
+          "text": "6. DELETION AND RETURN.\n\nUpon termination of the Service, Processor shall, at Controller's choice, delete or return all Personal Data and delete existing copies unless Union or Member State law requires storage. Processor shall complete deletion from production systems within thirty (30) days and from backups within ninety (90) days.",
+          "start_hint": 2067,
+          "title": "6. DELETION AND RETURN."
+        },
+        {
+          "id": "c8",
+          "text": "7. AUDITS.\n\nProcessor shall make available to Controller information necessary to demonstrate compliance with this DPA and shall allow for audits, including inspections, by Controller or an auditor mandated by Controller, not more than once per year unless a personal data breach has occurred.",
+          "start_hint": 2404,
+          "title": "7. AUDITS."
+        },
+        {
+          "id": "c9",
+          "text": "8. INTERNATIONAL TRANSFERS.\n\nWhere Processor transfers Personal Data outside the United Kingdom or European Economic Area, Processor shall ensure an appropriate transfer mechanism, such as the European Commission's Standard Contractual Clauses, is in place.",
+          "start_hint": 2699,
+          "title": "8. INTERNATIONAL TRANSFERS."
+        },
+        {
+          "id": "c10",
+          "text": "9. LIABILITY.\n\nLiability arising under this DPA is subject to the limitation of liability in the Agreement, except that nothing in this DPA limits either party's liability for a fine issued by a supervisory authority to the extent that fine is caused by that party's breach.",
+          "start_hint": 2958,
+          "title": "9. LIABILITY."
+        },
+        {
+          "id": "c11",
+          "text": "ANNEX 1. DESCRIPTION OF PROCESSING.\n\nData subjects: Customer's employees and end customers. Personal Data: names, business contact details, order history. Purpose: hosting the analytics Service. Duration: Subscription Term plus the deletion period in Section 6.",
+          "start_hint": 3234,
+          "title": "ANNEX 1. DESCRIPTION OF PROCESSING."
+        },
+        {
+          "id": "c12",
+          "text": "ANNEX 2. SUBPROCESSORS.\n\nAmazon Web Services EMEA SARL (hosting, EU region). Mailwright Ltd (transactional email). Processor will not use a subprocessor to process Personal Data without following Section 2.",
+          "start_hint": 3497,
+          "title": "ANNEX 2. SUBPROCESSORS."
+        }
+      ]
+    },
+    {
+      "document_id": "consulting-agreement",
+      "source_path": "/workspace/data/samples/consulting_agreement.txt",
+      "source_kind": "sample",
+      "clause_count": 9,
+      "clauses": [
+        {
+          "id": "c1",
+          "text": "PROFESSIONAL SERVICES CONSULTING AGREEMENT\n\nThis Consulting Agreement (the \"Agreement\") is dated 8 February 2026 between Lark & Quill Advisory Ltd (\"Consultant\") and Bright Harbor Payments Ltd (\"Client\"). Consultant will provide data-protection programme review services described in a statement of work.",
+          "start_hint": 0,
+          "title": "PROFESSIONAL SERVICES CONSULTING AGREEMENT"
+        },
+        {
+          "id": "c2",
+          "text": "1. SERVICES AND DELIVERABLES.\n\nConsultant shall perform the services with reasonable skill and care. Deliverables are for Client's internal use. Consultant may use anonymized know-how in future work.",
+          "start_hint": 306,
+          "title": "1. SERVICES AND DELIVERABLES."
+        },
+        {
+          "id": "c3",
+          "text": "2. FEES.\n\nClient shall pay the daily rates in the statement of work plus pre-approved expenses. Invoices are due in fourteen (14) days.",
+          "start_hint": 507,
+          "title": "2. FEES."
+        },
+        {
+          "id": "c4",
+          "text": "3. CLIENT MATERIALS.\n\nClient remains owner of all Client materials. Consultant shall use Client materials only to perform the services and shall not disclose them to third parties.",
+          "start_hint": 644,
+          "title": "3. CLIENT MATERIALS."
+        },
+        {
+          "id": "c5",
+          "text": "4. PERSONAL DATA.\n\nIf Consultant processes Personal Data for Client, Consultant does so as a processor and only on Client's instructions. Consultant shall not appoint a subprocessor without Client's prior written consent. Upon request, Consultant shall return or delete Personal Data within fourteen (14) days after the engagement ends.",
+          "start_hint": 826,
+          "title": "4. PERSONAL DATA."
+        },
+        {
+          "id": "c6",
+          "text": "5. TERM AND EXIT.\n\nEither party may terminate this Agreement for convenience on thirty (30) days' written notice, or immediately for material breach not cured within ten (10) days. On exit, Consultant shall deliver work in progress, return Client materials, and delete Client Personal Data as set out in Section 4.",
+          "start_hint": 1164,
+          "title": "5. TERM AND EXIT."
+        },
+        {
+          "id": "c7",
+          "text": "6. INDEMNIFICATION.\n\nConsultant shall indemnify Client against third-party claims arising from Consultant's negligence or willful misconduct in performing the services. Client shall indemnify Consultant against claims arising from Client materials or Client instructions.",
+          "start_hint": 1480,
+          "title": "6. INDEMNIFICATION."
+        },
+        {
+          "id": "c8",
+          "text": "7. LIMITATION OF LIABILITY.\n\nConsultant's total liability under this Agreement shall not exceed the fees paid by Client in the six (6) months before the claim, except for fraud, death or personal injury caused by negligence, or Consultant's indemnification obligations. Neither party is liable for lost profits or indirect damages.",
+          "start_hint": 1753,
+          "title": "7. LIMITATION OF LIABILITY."
+        },
+        {
+          "id": "c9",
+          "text": "8. GOVERNING LAW.\n\nThis Agreement is governed by the laws of Scotland.",
+          "start_hint": 2086,
+          "title": "8. GOVERNING LAW."
+        }
+      ]
+    },
+    {
+      "document_id": "vendor-security-addendum",
+      "source_path": "/workspace/data/samples/vendor_security_addendum.txt",
+      "source_kind": "sample",
+      "clause_count": 8,
+      "clauses": [
+        {
+          "id": "c1",
+          "text": "VENDOR SECURITY ADDENDUM\n\nThis Vendor Security Addendum (the \"Addendum\") supplements the services agreement between Northline Analytics Ltd (\"Customer\") and Packetwell Hosting Ltd (\"Vendor\") dated 20 January 2026. If there is a conflict on security or data handling, this Addendum controls.",
+          "start_hint": 0,
+          "title": "VENDOR SECURITY ADDENDUM"
+        },
+        {
+          "id": "c2",
+          "text": "1. SECURITY PROGRAM.\n\nVendor shall maintain a written information security program aligned with SOC 2 Type II trust services criteria for security and availability. Upon request, Vendor shall provide Customer with its latest SOC 2 Type II report under NDA.",
+          "start_hint": 292,
+          "title": "1. SECURITY PROGRAM."
+        },
+        {
+          "id": "c3",
+          "text": "2. ACCESS CONTROL.\n\nVendor shall enforce unique user credentials, multi-factor authentication for remote access to systems that process Customer data, and least-privilege access reviews at least quarterly.",
+          "start_hint": 550,
+          "title": "2. ACCESS CONTROL."
+        },
+        {
+          "id": "c4",
+          "text": "3. SUBPROCESSORS AND THIRD-PARTY SHARING.\n\nVendor shall not share Customer data with a third party except subprocessors approved under the DPA. Vendor shall flow down equivalent security obligations and remain responsible for subprocessors.",
+          "start_hint": 757,
+          "title": "3. SUBPROCESSORS AND THIRD-PARTY SHARING."
+        },
+        {
+          "id": "c5",
+          "text": "4. INCIDENT RESPONSE.\n\nVendor shall notify Customer of a security incident affecting Customer data within seventy-two (72) hours of confirmation, and shall reasonably cooperate in investigation and remediation.",
+          "start_hint": 999,
+          "title": "4. INCIDENT RESPONSE."
+        },
+        {
+          "id": "c6",
+          "text": "5. DATA RETURN ON EXIT.\n\nWhen the services end, Vendor shall, within thirty (30) days of Customer's written request, return Customer data in a standard format and then securely delete remaining copies, except as required by law.",
+          "start_hint": 1211,
+          "title": "5. DATA RETURN ON EXIT."
+        },
+        {
+          "id": "c7",
+          "text": "6. AUDIT RIGHTS.\n\nCustomer may, not more than once per year, review Vendor's relevant policies and, where reasonably necessary, conduct an on-site or remote audit with fifteen (15) days' notice.",
+          "start_hint": 1441,
+          "title": "6. AUDIT RIGHTS."
+        },
+        {
+          "id": "c8",
+          "text": "7. LIABILITY.\n\nNothing in this Addendum increases the liability cap in the main services agreement, except that Vendor's liability for a proven unauthorized disclosure of Customer data caused by Vendor's failure to meet Section 1 or Section 2 shall not be less than twelve (12) months of fees.",
+          "start_hint": 1637,
+          "title": "7. LIABILITY."
+        }
+      ]
+    }
+  ]
+}
