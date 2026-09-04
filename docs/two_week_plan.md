@@ -35,6 +35,7 @@ These are true of the repo today. Later days should follow them.
 - Do not put CUAD into Chroma. RAG retrieves GDPR rules from `.chroma/gdpr`.
 - Chunk length follows the embedding model's `max_seq_length` (256 WordPieces for `all-MiniLM-L6-v2`), not a hardcoded 500–800 words.
 - Clause segmentation is rule-based (`src/segmenter/`). Five-document store: `data/exercises/day3_segmentation/clauses.json`.
+- Day 4 LangGraph skeleton: `src/graph/` + `run.py`. Linear flow with stub compliance/verify/report (empty findings).
 
 ---
 
@@ -121,10 +122,12 @@ Stack: Chroma + `sentence-transformers/all-MiniLM-L6-v2`. Chunk size is discover
 
 ### Day 4 — LangGraph skeleton and state
 
-- [ ] Define `ComplianceState`: `doc`, `clauses`, `findings`, `verified_findings`, `report`, `errors`
-- [ ] Graph: `ingest → segment → (stub agents) → END`
-- [ ] Checkpointing optional; focus on linear flow first
-- [ ] CLI: `python run.py --contract path/to/msa.txt`
+**Status: done**
+
+- [x] Define `ComplianceState`: `doc`, `clauses`, `findings`, `verified_findings`, `report`, `errors`
+- [x] Graph: `ingest → segment → (stub agents) → END`
+- [x] Checkpointing optional; focus on linear flow first
+- [x] CLI: `python run.py --contract path/to/msa.txt`
 
 **Learn (legal):** Finding = issue + evidence quote + rule reference + severity. You are not judging law — you are producing structured allegations for review.
 

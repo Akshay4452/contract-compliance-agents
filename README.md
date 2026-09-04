@@ -4,7 +4,7 @@ Multi-agent contract review pipeline: segment clauses, check against GDPR corpus
 
 ## Plan
 
-The 14-day schedule (Days 1–3 done, Days 4–14 remaining) lives in [`docs/two_week_plan.md`](docs/two_week_plan.md). Use that file as the source of truth when picking up work.
+The 14-day schedule (Days 1–4 done, Days 5–14 remaining) lives in [`docs/two_week_plan.md`](docs/two_week_plan.md). Use that file as the source of truth when picking up work.
 
 ## Day 1 status
 
@@ -31,6 +31,13 @@ Chunk length is **not** a hardcoded 500–800 words. It follows the embedding mo
 
 See [`docs/day3_changes.md`](docs/day3_changes.md). No LangGraph or LLM on this day.
 
+## Day 4 status
+
+- [x] `ComplianceState` + linear LangGraph: ingest → segment → stub compliance/verify/report
+- [x] CLI: `python run.py --contract path/to/msa.txt` (empty findings, smoke report)
+
+No RAG/LLM calls yet — stubs only. Real compliance agent is Day 5.
+
 ## Quick start
 
 ```powershell
@@ -47,6 +54,12 @@ python scripts/segment_contracts.py
 python scripts/segment_smoke_test.py
 ```
 
+Day 4 pipeline (stub findings):
+
+```powershell
+python run.py --contract CUAD_v1\full_contract_txt\2ThemartComInc_19990826_10-12G_EX-10.10_6700288_EX-10.10_Co-Branding Agreement_ Agency Agreement.txt
+```
+
 Single query against the persisted index:
 
 ```powershell
@@ -57,6 +70,12 @@ Print clauses for one CUAD file (Day 3; path from your local CUAD tree):
 
 ```powershell
 python -m src.segmenter CUAD_v1\full_contract_txt\2ThemartComInc_19990826_10-12G_EX-10.10_6700288_EX-10.10_Co-Branding Agreement_ Agency Agreement.txt
+```
+
+Run the Day 4 LangGraph skeleton (empty findings):
+
+```powershell
+python run.py --contract CUAD_v1\full_contract_txt\2ThemartComInc_19990826_10-12G_EX-10.10_6700288_EX-10.10_Co-Branding Agreement_ Agency Agreement.txt
 ```
 
 ## Data strategy

@@ -1,4 +1,4 @@
-# Legal Glossary (Day 1–3)
+# Legal Glossary (Day 1–4)
 
 Plain-English definitions for this project. You are **not** becoming a lawyer; you are building a **first-pass reviewer**.
 
@@ -15,6 +15,7 @@ Plain-English definitions for this project. You are **not** becoming a lawyer; y
 | **GDPR** | EU law on how personal data must be handled | Traffic rules, but for personal data |
 | **Data retention** | How long you may keep personal data, and deleting it when that period ends | Keep the CCTV tape 30 days, then wipe it |
 | **SOC 2** | Security audit framework (not a law) | A report card that says "this company secures data well" |
+| **Finding** | Structured allegation: issue + evidence quote + rule reference + severity — for human review, not a final legal judgment | A flagged line item on a first-pass checklist |
 
 ## Day 3 — read real CUAD sections
 
