@@ -16,12 +16,13 @@ Plain-English definitions for this project. You are **not** becoming a lawyer; y
 | **Data retention** | How long you may keep personal data, and deleting it when that period ends | Keep the CCTV tape 30 days, then wipe it |
 | **SOC 2** | Security audit framework (not a law) | A report card that says "this company secures data well" |
 
-## Day 3 — read one real MSA section
+## Day 3 — read real CUAD sections
 
-From `data/templates/saas_msa.txt` (labeled in `data/exercises/day3_plain_english.md`):
+Labels in `data/exercises/day3_plain_english.md` (from segmented CUAD contracts):
 
-- **Liability cap (section 10):** payout ceiling is 12 months of fees. Indirect / lost-profit damages are out. Indemnity, confidentiality breaches, and unpaid invoices sit *outside* that ceiling.
-- **Indemnification (section 9):** vendor covers IP-infringement and unauthorized-processing lawsuits; customer covers lawsuits caused by customer data or misuse. The paying side controls the defense.
+- **Indemnification:** one party pays the other’s legal costs when a third-party claim is their fault (e.g. Adams Golf endorsement `14. INDEMNITY`).
+- **Liability cap:** maximum payout if things go wrong (often fees over a period; consequential damages usually excluded). Look for “limitation of liability” wording when it appears as its own section or inside a parent clause.
+- **Termination:** when the deal ends and what must still happen (return/stop use of marks, pay amounts owed, surviving duties).
 
 ## What CUAD gives you
 

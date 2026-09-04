@@ -26,7 +26,7 @@ Chunk length is **not** a hardcoded 500–800 words. It follows the embedding mo
 
 - [x] Rule-based segmenter (`src/segmenter/`) → `Clause{id, text, start_hint}`
 - [x] Graph-ready store: `{document_id, clauses[]}`
-- [x] 3 templates + 2 CUAD (or bundled samples) → `data/exercises/day3_segmentation/clauses.json`
+- [x] 5 CUAD contracts → `data/exercises/day3_segmentation/clauses.json`
 - [x] Print-one-contract CLI + smoke test
 
 See [`docs/day3_changes.md`](docs/day3_changes.md). No LangGraph or LLM on this day.
@@ -53,10 +53,10 @@ Single query against the persisted index:
 python -m src.rag.retrieve "subprocessor notification"
 ```
 
-Print clauses for one file (Day 3):
+Print clauses for one CUAD file (Day 3; path from your local CUAD tree):
 
 ```powershell
-python -m src.segmenter data/templates/saas_msa.txt
+python -m src.segmenter CUAD_v1\full_contract_txt\2ThemartComInc_19990826_10-12G_EX-10.10_6700288_EX-10.10_Co-Branding Agreement_ Agency Agreement.txt
 ```
 
 ## Data strategy
@@ -65,7 +65,6 @@ python -m src.segmenter data/templates/saas_msa.txt
 |---------|------|----------|
 | CUAD v1 (510 contracts) | Contracts + gold labels | No — path in `config/data_paths.yaml` |
 | AYI-NEDJIMI/gdpr-en | GDPR RAG corpus | Downloaded to `data/regulations/` |
-| Day 3 templates / samples | Dev contracts for segmentation | Yes — `data/templates/`, `data/samples/` |
 | Synthetic golden | Your answer key | Added Week 2 |
 
 **Dev vs eval:** Build on 5–10 contracts daily; run full 510 only in eval jobs.

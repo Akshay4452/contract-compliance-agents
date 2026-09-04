@@ -1,4 +1,4 @@
-"""Day 3: segment 3 templates + 2 CUAD contracts (or sample fallbacks)."""
+"""Day 3: segment 5 CUAD contracts into clauses.json."""
 
 from __future__ import annotations
 
@@ -6,60 +6,15 @@ import argparse
 import sys
 from pathlib import Path
 
-import yaml
-
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.segmenter.models import SegmentedDocument
-from src.segmenter.store import dump_documents, segment_file
-
-TEMPLATE_FILES = [
-    ROOT / "data" / "templates" / "nda_mutual.txt",
-    ROOT / "data" / "templates" / "saas_msa.txt",
-    ROOT / "data" / "templates" / "dpa_processor.txt",
-]
-
-FALLBACK_FILES = [
-    ROOT / "data" / "samples" / "consulting_agreement.txt",
-    ROOT / "data" / "samples" / "vendor_security_addendum.txt",
-]
+from src.segmenter.store import dump_documents, pick_cuad, segment_file
 
 DEFAULT_OUT = ROOT / "data" / "exercises" / "day3_segmentation" / "clauses.json"
-
-
-def _cuad_txt_dir() -> Path | None:
-    config_path = ROOT / "config" / "data_paths.yaml"
-    with config_path.open(encoding="utf-8") as f:
-        cfg = yaml.safe_load(f)["cuad"]
-    txt_dir = Path(cfg["contracts_txt_dir"])
-    if txt_dir.is_dir():
-        return txt_dir
-    return None
-
-
-def _pick_cuad(limit: int) -> list[Path]:
-    txt_dir = _cuad_txt_dir()
-    if txt_dir is None:
-        return []
-    files = sorted(txt_dir.glob("*.txt"))
-    return files[:limit]
-
-
-def collect_inputs(cuad_limit: int) -> list[tuple[Path, str]]:
-    """Return (path, source_kind) for 3 templates + 2 CUAD or fallbacks."""
-    chosen: list[tuple[Path, str]] = [(path, "template") for path in TEMPLATE_FILES]
-    cuad = _pick_cuad(cuad_limit)
-    if len(cuad) >= cuad_limit:
-        chosen.extend((path, "cuad") for path in cuad[:cuad_limit])
-        return chosen
-    print(
-        "CUAD txt dir missing or has fewer than "
-        f"{cuad_limit} files; using bundled samples for the remaining slots."
-    )
-    chosen.extend((path, "sample") for path in FALLBACK_FILES[:cuad_limit])
-    return chosen
+DEFAULT_CUAD_LIMIT = 5
 
 
 def _print_clauses(doc: SegmentedDocument, preview: int, limit: int | None) -> None:
@@ -76,14 +31,14 @@ def _print_clauses(doc: SegmentedDocument, preview: int, limit: int | None) -> N
 
 
 def main(argv: list[str] | None = None) -> None:
-    parser = argparse.ArgumentParser(description="Build clauses.json for Day 3")
+    parser = argparse.ArgumentParser(description="Build clauses.json from CUAD contracts")
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
-    parser.add_argument("--cuad-limit", type=int, default=2)
+    parser.add_argument("--cuad-limit", type=int, default=DEFAULT_CUAD_LIMIT)
     parser.add_argument(
         "--print",
         dest="print_id",
-        default="saas-msa",
-        help="document_id to print (default: saas-msa)",
+        default=None,
+        help="document_id to print (default: first document)",
     )
     parser.add_argument("--preview", type=int, default=500)
     parser.add_argument(
@@ -93,11 +48,14 @@ def main(argv: list[str] | None = None) -> None:
     )
     args = parser.parse_args(argv)
 
-    documents: list[SegmentedDocument] = []
-    for path, kind in collect_inputs(args.cuad_limit):
-        if not path.is_file():
-            raise SystemExit(f"missing input: {path}")
-        documents.append(segment_file(path, source_kind=kind))
+    try:
+        paths = pick_cuad(args.cuad_limit, root=ROOT)
+    except FileNotFoundError as exc:
+        raise SystemExit(str(exc)) from exc
+
+    documents: list[SegmentedDocument] = [
+        segment_file(path, source_kind="cuad") for path in paths
+    ]
 
     dump_documents(documents, args.out)
 
@@ -106,10 +64,13 @@ def main(argv: list[str] | None = None) -> None:
         print(f"  {doc.document_id:40}  {len(doc.clauses):3} clauses  ({doc.source_kind})")
     print(f"Wrote {args.out}")
 
-    target = next((doc for doc in documents if doc.document_id == args.print_id), None)
+    target = None
+    if args.print_id:
+        target = next((doc for doc in documents if doc.document_id == args.print_id), None)
+        if target is None:
+            print(f"\nNo document_id={args.print_id!r}; printing first document")
     if target is None and documents:
         target = documents[0]
-        print(f"\nNo document_id={args.print_id!r}; printing {target.document_id}")
     if target is not None:
         limit = None if args.print_all else 3
         _print_clauses(target, preview=args.preview, limit=limit)

@@ -1,4 +1,4 @@
-"""Smoke-test the Day 3 rule-based segmenter (no LLM, no Chroma)."""
+"""Smoke-test the Day 3 rule-based segmenter on CUAD contracts."""
 
 from __future__ import annotations
 
@@ -12,15 +12,7 @@ if str(ROOT) not in sys.path:
 
 from src.segmenter.models import SegmentedDocument
 from src.segmenter.splitter import segment_text
-from src.segmenter.store import dump_documents, load_documents, segment_file
-
-MSA = ROOT / "data" / "templates" / "saas_msa.txt"
-NDA = ROOT / "data" / "templates" / "nda_mutual.txt"
-DPA = ROOT / "data" / "templates" / "dpa_processor.txt"
-SAMPLES = [
-    ROOT / "data" / "samples" / "consulting_agreement.txt",
-    ROOT / "data" / "samples" / "vendor_security_addendum.txt",
-]
+from src.segmenter.store import dump_documents, load_documents, pick_cuad, segment_file
 
 NUMBERED_FIXTURE = """CO-BRANDING AGREEMENT
 
@@ -80,61 +72,40 @@ def test_numbered_fixture() -> None:
     _assert_ids_and_offsets(NUMBERED_FIXTURE, clauses)
 
 
-def test_msa_has_liability_and_indemnity() -> None:
-    text = MSA.read_text(encoding="utf-8")
-    clauses = segment_text(text)
-    _assert_ids_and_offsets(text, clauses)
-    blob = " ".join(c.title for c in clauses)
-    assert "INDEMNIFICATION" in blob
-    assert "LIMITATION OF LIABILITY" in blob
-    liability = next(c for c in clauses if "LIMITATION OF LIABILITY" in c.title)
-    assert "twelve (12) months" in liability.text
-    assert "10.1" in liability.text
-    assert "10.2" in liability.text
-    print(f"MSA clauses={len(clauses)}  liability chars={len(liability.text)}")
-
-
-def test_templates_split() -> None:
-    for path in (NDA, MSA, DPA):
-        doc = segment_file(path, source_kind="template")
-        assert len(doc.clauses) >= 5, f"{path.name} only {len(doc.clauses)} clauses"
-        print(f"{doc.document_id}: {len(doc.clauses)} clauses")
-
-
-def test_five_files_have_required_shape() -> None:
-    paths = [NDA, MSA, DPA, *SAMPLES]
-    for path in paths:
-        doc = segment_file(path)
+def test_five_cuad_contracts() -> None:
+    paths = pick_cuad(5, root=ROOT)
+    assert len(paths) == 5
+    docs = [segment_file(path, source_kind="cuad") for path in paths]
+    for doc in docs:
         assert doc.document_id
-        assert len(doc.clauses) >= 5, path.name
+        assert doc.source_kind == "cuad"
+        assert len(doc.clauses) >= 1, doc.document_id
+        text = Path(doc.source_path).read_text(encoding="utf-8", errors="replace")
+        _assert_ids_and_offsets(text, doc.clauses)
         for clause in doc.clauses:
             assert clause.id.startswith("c")
             assert clause.text
             assert isinstance(clause.start_hint, int) and clause.start_hint >= 0
-    print(f"shape check: {len(paths)} documents, required fields present")
+        print(f"{doc.document_id}: {len(doc.clauses)} clauses")
+    print(f"shape check: {len(docs)} CUAD documents, required fields present")
 
 
 def test_json_roundtrip() -> None:
-    docs = [
-        segment_file(NDA, source_kind="template"),
-        segment_file(MSA, source_kind="template"),
-        segment_file(DPA, source_kind="template"),
-    ]
+    paths = pick_cuad(5, root=ROOT)
+    docs = [segment_file(path, source_kind="cuad") for path in paths]
     with tempfile.TemporaryDirectory() as tmp:
         out = Path(tmp) / "clauses.json"
         dump_documents(docs, out)
         loaded = load_documents(out)
     assert [d.document_id for d in loaded] == [d.document_id for d in docs]
     assert all(isinstance(d, SegmentedDocument) for d in loaded)
-    assert loaded[1].clauses[0].id == "c1"
+    assert loaded[0].clauses[0].id == "c1"
     print(f"roundtrip documents={len(loaded)}")
 
 
 def main() -> None:
     test_numbered_fixture()
-    test_msa_has_liability_and_indemnity()
-    test_templates_split()
-    test_five_files_have_required_shape()
+    test_five_cuad_contracts()
     test_json_roundtrip()
     print("\nSMOKE PASS")
 

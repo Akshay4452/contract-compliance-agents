@@ -1,25 +1,25 @@
 # Day 3 — three clauses in plain English
 
-Source: `data/templates/saas_msa.txt`, document_id `saas-msa`, produced by `scripts/segment_contracts.py`.
+Source: first and fifth documents in `data/exercises/day3_segmentation/clauses.json` (CUAD contracts), produced by `scripts/segment_contracts.py`.
 
-Same exercise as Day 1: read the generated clause, say what it is about. These three are the Day 3 legal terms (indemnification, liability cap) plus one downstream check type (subprocessors).
+Same exercise as Day 1: read the generated clause, say what it is about.
 
-## c2 — `1. SERVICES.`
+## From the co-branding agreement — `c2` `1. DEFINITIONS.`
 
-**What it is about:** The vendor will run the analytics product for the customer, and may use its own vendors (subprocessors, e.g. a cloud host) to do that. The vendor still owns the outcome. Before a *new* subprocessor that handles personal data is added, the customer gets 30 days' written notice.
+**What it is about:** The parties define key terms used later (Content, Co-Branded Site, Customers, Escrow Services, Launch Date, Marks, and so on). Without these definitions, later sections would be ambiguous.
 
-**Why it matters later:** Compliance check type 1 (subprocessor / third-party sharing). A missing notice duty is a flag.
+**Plain label:** Dictionary of words for this contract.
 
-## c10 — `9. INDEMNIFICATION.`
+## From the co-branding agreement — `c7` `8. TERM AND TERMINATION.`
 
-**What it is about:** If a third party sues the customer because the product copies someone else's IP, or because the vendor handled personal data in a way it was not allowed to, the vendor pays the legal costs. The other way around: if the customer's own data or misuse causes a lawsuit, the customer pays. The paying side runs the defense; the other side has to cooperate.
+**What it is about:** How long the deal lasts, how either side can end it (breach, change of control, bankruptcy), and what happens after exit (rights end, money owed is paid, marks/content come down). Some sections survive termination.
 
-**Plain label:** Who picks up the bill if someone outside the contract sues.
+**Plain label:** When the deal ends and what you must still do.
 
-## c11 — `10. LIMITATION OF LIABILITY.`
+## From the Adams Golf endorsement agreement — `c12` `14. INDEMNITY`
 
-**What it is about:** If things go wrong, the most either side usually pays is the fees from the last 12 months. Lost profits and other indirect losses are off the table. Three exceptions are *not* capped that way: indemnity (section 9), a confidentiality breach, and unpaid invoices.
+**What it is about:** The consultant must pay Adams Golf’s legal costs if Adams Golf is sued because the consultant broke a promise in the agreement. That is indemnification: one party covers the other when a third-party claim is their fault.
 
-**Plain label:** Worst-case payout = 12 months of fees, unless it is indemnity, secrets, or unpaid bills.
+**Plain label:** Who pays if a breach causes a lawsuit.
 
-`10.1` and `10.2` stayed in this one clause on purpose (subsections are not split). Downstream agents treat "limitation of liability" as a single unit of work.
+Day 3 glossary terms (liability cap / indemnification) still apply when you later spot limitation-of-liability text inside a larger clause — the segmenter keeps subsections together on purpose.

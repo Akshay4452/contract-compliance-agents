@@ -103,9 +103,9 @@ Stack: Chroma + `sentence-transformers/all-MiniLM-L6-v2`. Chunk size is discover
 - [x] Ingest contract text → list of `Clause{id, text, start_hint}`
 - [x] Start rule-based (headings, numbered sections); add LLM cleanup only if needed
 - [x] Store in a structure later graph state can reuse: `document_id`, `clauses[]`
-- [x] Run on 3 templates + 2 CUAD contracts (or 5–10 CUAD `.txt` files — not all 510)
+- [x] Run on 5 CUAD `.txt` files (not all 510)
 
-**Learn (legal):** Liability cap — max payout if things go wrong. Indemnification — who pays if sued. Read one real MSA section and label it in plain English.
+**Learn (legal):** Liability cap — max payout if things go wrong. Indemnification — who pays if sued. Read real CUAD sections and label them in plain English.
 
 **Learn (tech):** Clause = unit of work for all downstream agents.
 
@@ -113,7 +113,7 @@ Stack: Chroma + `sentence-transformers/all-MiniLM-L6-v2`. Chunk size is discover
 
 **Done when:** a script prints clauses for one contract (`python -m src.segmenter …` or `scripts/segment_contracts.py`), and you can read three of them and say what each is about — same skill as Day 1, now as reusable code (`src/segmenter/`). Plain-English labels: `data/exercises/day3_plain_english.md`.
 
-**Shipped:** rule-based splitter (no LLM). 3 templates in `data/templates/`. If local CUAD is missing, 2 bundled samples fill those slots so the 5-document run still works.
+**Shipped:** rule-based splitter (no LLM). Inputs are 5 CUAD contracts from `config/data_paths.yaml` (`cuad.contracts_txt_dir`).
 
 **Do not:** LangGraph, LLM-as-judge, SOC 2 index, put CUAD into Chroma, full 510-contract eval.
 
