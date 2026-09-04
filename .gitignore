@@ -11,7 +11,10 @@ mlruns/
 .chroma/
 data/cache/
 data/processed/
-*.log
+data/exercises/day5_bad_contracts/smoke_results.json
+data/exercises/day5_bad_contracts/*_llm_results.json
+data/runs/
+
 .DS_Store
 Thumbs.db
 

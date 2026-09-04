@@ -1,0 +1,25 @@
+MASTER SERVICES AGREEMENT
+(Synthetic bad contract for Day 5 testing — not a real legal instrument.)
+
+Agreement between Customer and ShareWide Analytics, Inc. ("Company").
+
+1. SERVICES.
+Company will provide the software-as-a-service platform described in the applicable Order Form.
+
+2. FEES AND PAYMENT.
+Customer will pay annual subscription fees in advance. Fees are non-refundable except as required by law.
+
+3. THIRD-PARTY SHARING.
+Company may disclose Customer personal data to any affiliate, partner, or other third party that Company selects, for any purpose Company determines, without notifying Customer.
+
+4. HOW LONG WE KEEP DATA.
+Company stores Customer personal data for the life of Company's product analytics program. Company has no duty to erase Customer personal data when the Services end or when the data is no longer needed for the contracted purpose.
+
+5. BREACH NOTICE.
+If Company confirms a personal data breach affecting Customer personal data, Company shall notify Customer without undue delay and in any event within seventy-two (72) hours of confirmation, and shall include known facts about the breach.
+
+6. LIABILITY CAP.
+Except for willful misconduct, Company's total liability under this Agreement shall not exceed the fees paid by Customer in the twelve (12) months before the event giving rise to liability.
+
+7. RETURN OF DATA ON EXIT.
+Within thirty (30) days after termination or Customer's written request, Company shall return Customer personal data in a common machine-readable format or securely delete it, and shall certify deletion upon request, except for copies retained solely as required by law.

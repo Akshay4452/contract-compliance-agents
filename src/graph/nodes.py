@@ -1,12 +1,27 @@
-"""Graph nodes: real ingest/segment; stub compliance/verify/report for Day 4."""
+"""Graph nodes: ingest/segment + Day 5 compliance; verify/report still stubs."""
 
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
+from src.compliance.agent import run_compliance
 from src.graph.state import ComplianceState, DocumentPayload, ReportPayload
 from src.segmenter.splitter import segment_text
 from src.segmenter.store import document_id_from_path
+
+# Optional overrides set by CLI before invoke (keeps ComplianceState lean).
+_COMPLIANCE_OPTS: dict[str, Any] = {}
+
+
+def set_compliance_options(**kwargs: Any) -> None:
+    """Configure the next compliance run (e.g. max_clauses from CLI)."""
+    _COMPLIANCE_OPTS.clear()
+    _COMPLIANCE_OPTS.update({k: v for k, v in kwargs.items() if v is not None})
+
+
+def clear_compliance_options() -> None:
+    _COMPLIANCE_OPTS.clear()
 
 
 def ingest(state: ComplianceState) -> dict:
@@ -39,9 +54,16 @@ def segment(state: ComplianceState) -> dict:
 
 
 def compliance(state: ComplianceState) -> dict:
-    """Stub: real RAG + LLM findings arrive on Day 5."""
-    _ = state
-    return {"findings": []}
+    """RAG + LLM: all five check_types on every clause → raw ``findings``."""
+    clauses = state.get("clauses") or []
+    if not clauses:
+        return {"findings": [], "errors": ["compliance: no clauses to check"]}
+
+    findings, errors = run_compliance(clauses, **_COMPLIANCE_OPTS)
+    out: dict[str, Any] = {"findings": findings}
+    if errors:
+        out["errors"] = errors
+    return out
 
 
 def verify(state: ComplianceState) -> dict:
@@ -51,15 +73,20 @@ def verify(state: ComplianceState) -> dict:
 
 
 def report(state: ComplianceState) -> dict:
-    """Stub: empty findings → minimal pending_review report (Day 7 packages for real)."""
-    findings = state.get("verified_findings") or []
+    """Stub report; Day 7 will package verified findings for real."""
+    raw = state.get("findings") or []
+    verified = state.get("verified_findings") or []
     payload: ReportPayload = {
         "status": "pending_review",
-        "summary": "No findings (pipeline smoke).",
-        "finding_count": len(findings),
+        "summary": (
+            f"Day 5 raw findings={len(raw)}; "
+            f"verified_findings={len(verified)} (verifier still stub)."
+        ),
+        "finding_count": len(verified),
         "markdown": (
             "# Audit report (stub)\n\n"
-            "Pipeline completed with empty findings.\n"
+            f"Raw findings from compliance: {len(raw)}\n"
+            f"Verified findings: {len(verified)}\n"
         ),
     }
     return {"report": payload}

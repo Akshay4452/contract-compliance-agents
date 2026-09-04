@@ -1,0 +1,14 @@
+check_type: {check_type}
+check_description: {check_description}
+clause_id: {clause_id}
+
+CLAUSE TEXT:
+{clause_text}
+
+RETRIEVED REGULATION SNIPPETS:
+{rag_block}
+
+Reminders:
+- If this clause is not about this check_type, flag=false.
+- Do not flag merely because the topic is absent from this clause.
+- If flag=true, evidence_quote must be copied verbatim from CLAUSE TEXT.

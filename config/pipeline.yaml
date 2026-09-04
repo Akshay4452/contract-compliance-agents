@@ -1,0 +1,8 @@
+# Pipeline knobs (Day 5+). Secrets stay in .env — not here.
+
+compliance:
+  model: "gpt-4o-mini"
+  temperature: 0
+  top_k: 5
+  # Optional cap for smoke runs; omit or null = all clauses
+  # max_clauses: 1

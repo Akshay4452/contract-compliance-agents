@@ -1,0 +1,45 @@
+{
+  "contract_id": "bad_03_open_sharing",
+  "contract_file": "bad_03_open_sharing.txt",
+  "why_bad": "Strong breach notice, liability cap, and exit return/delete — but open third-party sharing and indefinite retention. Isolates subprocessor + data_retention failures.",
+  "expected_findings": [
+    {
+      "check_type": "subprocessor",
+      "clause_title_contains": "THIRD-PARTY SHARING",
+      "expected_flag": true,
+      "severity": "high",
+      "evidence_must_contain": "without notifying Customer",
+      "reason": "Any affiliate/partner/third party, any purpose, no customer notice — open sharing gap."
+    },
+    {
+      "check_type": "data_retention",
+      "clause_title_contains": "HOW LONG WE KEEP DATA",
+      "expected_flag": true,
+      "severity": "high",
+      "evidence_must_contain": "no duty to erase",
+      "reason": "Data kept for the life of a product program with no erase-when-no-longer-needed duty."
+    }
+  ],
+  "expected_no_flag": [
+    {
+      "check_type": "breach_notification",
+      "clause_title_contains": "BREACH NOTICE",
+      "reason": "72-hour notice after confirmation is adequate for this first-pass check."
+    },
+    {
+      "check_type": "liability_cap",
+      "clause_title_contains": "LIABILITY CAP",
+      "reason": "Explicit 12-month fees cap — should not flag."
+    },
+    {
+      "check_type": "termination_data_return",
+      "clause_title_contains": "RETURN OF DATA ON EXIT",
+      "reason": "Return or secure delete within 30 days with certification — should not flag."
+    },
+    {
+      "check_type": "subprocessor",
+      "clause_title_contains": "FEES AND PAYMENT",
+      "reason": "Payment terms are unrelated to third-party sharing."
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-# Legal Glossary (Day 1–4)
+# Legal Glossary (Day 1–5)
 
 Plain-English definitions for this project. You are **not** becoming a lawyer; you are building a **first-pass reviewer**.
 
@@ -16,6 +16,9 @@ Plain-English definitions for this project. You are **not** becoming a lawyer; y
 | **Data retention** | How long you may keep personal data, and deleting it when that period ends | Keep the CCTV tape 30 days, then wipe it |
 | **SOC 2** | Security audit framework (not a law) | A report card that says "this company secures data well" |
 | **Finding** | Structured allegation: issue + evidence quote + rule reference + severity — for human review, not a final legal judgment | A flagged line item on a first-pass checklist |
+| **Personal data** | Information that can identify a person (name, email, ID, etc.) | The fields in a customer account profile |
+| **Processor** | Vendor that handles personal data on someone else’s instructions | The payroll company that runs HR’s file |
+| **Breach notification** | Duty to tell the customer (and sometimes regulators) after a personal-data incident | “Call us within 72 hours if the vault was opened” |
 
 ## Day 3 — read real CUAD sections
 

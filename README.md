@@ -4,7 +4,7 @@ Multi-agent contract review pipeline: segment clauses, check against GDPR corpus
 
 ## Plan
 
-The 14-day schedule (Days 1–4 done, Days 5–14 remaining) lives in [`docs/two_week_plan.md`](docs/two_week_plan.md). Use that file as the source of truth when picking up work.
+The 14-day schedule (Days 1–5 done including bad-contract fixtures; Days 6–14 remaining) lives in [`docs/two_week_plan.md`](docs/two_week_plan.md). Use that file as the source of truth when picking up work.
 
 ## Day 1 status
 
@@ -38,6 +38,31 @@ See [`docs/day3_changes.md`](docs/day3_changes.md). No LangGraph or LLM on this 
 
 No RAG/LLM calls yet — stubs only. Real compliance agent is Day 5.
 
+## Day 5 status
+
+- [x] Compliance agent: RAG (`.chroma/gdpr`) + LLM structured findings
+- [x] One prompt with enum `check_type`; all **5** checks on every clause
+- [x] Config: `config/pipeline.yaml`; secrets: `.env` (`OPENAI_API_KEY`)
+- [x] Synthetic bad contracts + answer keys: `data/exercises/day5_bad_contracts/`
+
+Offline smoke (mocked LLM + real RAG; drives all three bad-contract fixtures):
+
+```powershell
+python scripts/compliance_smoke_test.py
+```
+
+Report (overwritten each run): `data/exercises/day5_bad_contracts/smoke_results.json`
+— lists each problematic clause, check type, and why.
+
+Live run on a known-bad MSA (needs `OPENAI_API_KEY`):
+
+```powershell
+python run.py --contract data\exercises\day5_bad_contracts\bad_01_all_five_gaps.txt --preview-findings 20
+```
+
+Writes `bad_01_all_five_gaps_llm_results.json` next to the contract (clause + why).
+Prompts live in `src/prompts/compliance_system.txt` and `compliance_user.txt`.
+
 ## Quick start
 
 ```powershell
@@ -52,13 +77,20 @@ python scripts/build_gdpr_index.py
 python scripts/rag_smoke_test.py
 python scripts/segment_contracts.py
 python scripts/segment_smoke_test.py
+python scripts/compliance_smoke_test.py
 ```
 
-Day 4 pipeline (stub findings):
+Day 5 live run (needs `OPENAI_API_KEY` in `.env`):
 
 ```powershell
-python run.py --contract CUAD_v1\full_contract_txt\2ThemartComInc_19990826_10-12G_EX-10.10_6700288_EX-10.10_Co-Branding Agreement_ Agency Agreement.txt
+copy .env.example .env
+# edit .env and set OPENAI_API_KEY=
+python run.py --contract data\exercises\day5_bad_contracts\bad_01_all_five_gaps.txt --preview-findings 20
+python run.py --contract data\exercises\day5_bad_contracts\bad_02_breach_and_exit.txt --preview-findings 20
+python run.py --contract data\exercises\day5_bad_contracts\bad_03_open_sharing.txt --preview-findings 20
 ```
+
+See `data/exercises/day5_bad_contracts/README.md` for why each file is “bad.”
 
 Single query against the persisted index:
 
@@ -72,10 +104,10 @@ Print clauses for one CUAD file (Day 3; path from your local CUAD tree):
 python -m src.segmenter CUAD_v1\full_contract_txt\2ThemartComInc_19990826_10-12G_EX-10.10_6700288_EX-10.10_Co-Branding Agreement_ Agency Agreement.txt
 ```
 
-Run the Day 4 LangGraph skeleton (empty findings):
+Run the Day 5 pipeline (needs ``OPENAI_API_KEY``; use ``--max-clauses`` to limit cost):
 
 ```powershell
-python run.py --contract CUAD_v1\full_contract_txt\2ThemartComInc_19990826_10-12G_EX-10.10_6700288_EX-10.10_Co-Branding Agreement_ Agency Agreement.txt
+python run.py --contract CUAD_v1\full_contract_txt\2ThemartComInc_19990826_10-12G_EX-10.10_6700288_EX-10.10_Co-Branding Agreement_ Agency Agreement.txt --max-clauses 1
 ```
 
 ## Data strategy

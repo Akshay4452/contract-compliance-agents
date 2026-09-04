@@ -1,0 +1,64 @@
+{
+  "contract_id": "bad_01_all_five_gaps",
+  "contract_file": "bad_01_all_five_gaps.txt",
+  "why_bad": "One MSA that deliberately fails all five Day 5 checks: open third-party sharing, indefinite retention, no breach notice duty, no liability cap, and no return/delete on exit.",
+  "expected_findings": [
+    {
+      "check_type": "subprocessor",
+      "clause_title_contains": "SUBPROCESSORS",
+      "expected_flag": true,
+      "severity": "high",
+      "evidence_must_contain": "without prior notice",
+      "reason": "Vendor may share personal data with any third party with zero customer notice or approval."
+    },
+    {
+      "check_type": "data_retention",
+      "clause_title_contains": "DATA RETENTION",
+      "expected_flag": true,
+      "severity": "high",
+      "evidence_must_contain": "as long as Vendor deems useful",
+      "reason": "Retention is indefinite and deletion when no longer needed is expressly disclaimed."
+    },
+    {
+      "check_type": "breach_notification",
+      "clause_title_contains": "SECURITY INCIDENTS",
+      "expected_flag": true,
+      "severity": "high",
+      "evidence_must_contain": "does not require Vendor to notify",
+      "reason": "No customer notification duty or timing for a personal data breach."
+    },
+    {
+      "check_type": "liability_cap",
+      "clause_title_contains": "LIABILITY",
+      "expected_flag": true,
+      "severity": "medium",
+      "evidence_must_contain": "does not state any maximum liability",
+      "reason": "No clear maximum payout / fees-based limitation of liability."
+    },
+    {
+      "check_type": "termination_data_return",
+      "clause_title_contains": "TERMINATION AND CUSTOMER DATA",
+      "expected_flag": true,
+      "severity": "high",
+      "evidence_must_contain": "no obligation to return or delete",
+      "reason": "On exit, data may stay in backups forever with no return/delete duty."
+    }
+  ],
+  "expected_no_flag": [
+    {
+      "check_type": "subprocessor",
+      "clause_title_contains": "FEES",
+      "reason": "Fees are commercial terms unrelated to third-party data sharing."
+    },
+    {
+      "check_type": "data_retention",
+      "clause_title_contains": "FEES",
+      "reason": "Fees clause should not trigger retention findings."
+    },
+    {
+      "check_type": "breach_notification",
+      "clause_title_contains": "DEFINITIONS",
+      "reason": "Definitions alone are not a breach-notification gap."
+    }
+  ]
+}

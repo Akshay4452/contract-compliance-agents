@@ -100,9 +100,16 @@ def _log_hits(query: str, top_k: int, hits: list[dict], ids: list[str]) -> None:
         logger.info("text:\n%s", hit["text"])
 
 
-def retrieve(query: str, top_k: int = 5, root: Path | None = None) -> list[dict]:
+def retrieve(
+    query: str,
+    top_k: int = 5,
+    root: Path | None = None,
+    *,
+    log_hits: bool = True,
+) -> list[dict]:
     """Return top_k hits: {text, score, metadata}. Opens the persisted index; does not rebuild."""
-    _configure_logger()
+    if log_hits:
+        _configure_logger()
     query = query.strip()
     if not query:
         raise ValueError("query must be non-empty")
@@ -142,7 +149,8 @@ def retrieve(query: str, top_k: int = 5, root: Path | None = None) -> list[dict]
                 "metadata": dict(meta or {}),
             }
         )
-    _log_hits(query, top_k, hits, ids)
+    if log_hits:
+        _log_hits(query, top_k, hits, ids)
     return hits
 
 

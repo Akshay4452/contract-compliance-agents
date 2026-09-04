@@ -36,6 +36,7 @@ These are true of the repo today. Later days should follow them.
 - Chunk length follows the embedding model's `max_seq_length` (256 WordPieces for `all-MiniLM-L6-v2`), not a hardcoded 500–800 words.
 - Clause segmentation is rule-based (`src/segmenter/`). Five-document store: `data/exercises/day3_segmentation/clauses.json`.
 - Day 4 LangGraph skeleton: `src/graph/` + `run.py`. Linear flow with stub compliance/verify/report (empty findings).
+- Day 5 compliance agent: `src/compliance/` — RAG + OpenAI structured output; one prompt / enum `check_type`; all 5 checks per clause. Verifier still stub.
 
 ---
 
@@ -139,20 +140,25 @@ Stack: Chroma + `sentence-transformers/all-MiniLM-L6-v2`. Chunk size is discover
 
 ### Day 5 — Compliance agent (RAG + LLM)
 
-- [ ] For each clause (or only “risk” clause types first): retrieve regulation chunks → LLM prompt → `Finding` list
-- [ ] Limit to **5 check types** (do not expand):
+**Status: done (agent + wiring + synthetic bad-contract fixtures)**
+
+- [x] For each clause: retrieve regulation chunks → LLM prompt → `Finding` list
+- [x] Limit to **5 check types** (do not expand):
   1. Subprocessor / third-party sharing
   2. Data retention / deletion
   3. Breach notification timing
   4. Liability cap present/absent
   5. Termination / data return on exit
-- [ ] Structured output (JSON schema / Pydantic)
+- [x] Structured output (JSON schema / Pydantic)
+- [x] Deliverable exercise: 3 hand-edited “bad” contracts + answer keys under `data/exercises/day5_bad_contracts/`
+
+**Shipped:** one shared prompt with enum `check_type`; all 5 checks on every clause; RAG queries are short (embedding window). Package `src/compliance/`; config in `config/pipeline.yaml`; CLI `--max-clauses` / `--top-k`. Offline smoke: `scripts/compliance_smoke_test.py` (mocked LLM + real Chroma, driven by bad-contract fixtures).
 
 **Learn (legal):** Walk one clause per check type with the glossary. GDPR: personal data, processor, subprocessors (high level). SOC 2: security commitments (high level, not audit details) — only if a SOC 2 corpus exists by then.
 
 **Learn (tech):** Prompt per check type, or one prompt with enum `check_type`.
 
-**Deliverable:** Raw findings for 1 synthetic “bad” contract you edit by hand.
+**Deliverable:** Raw findings for synthetic “bad” contracts under `data/exercises/day5_bad_contracts/` (answer keys + offline smoke).
 
 ---
 

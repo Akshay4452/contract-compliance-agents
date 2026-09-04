@@ -1,0 +1,40 @@
+{
+  "contract_id": "bad_02_breach_and_exit",
+  "contract_file": "bad_02_breach_and_exit.txt",
+  "why_bad": "Looks like a serious DPA on subprocessors, retention, and liability — but breach notice has no deadline and exit still allows keeping data with no return/delete duty. Tests that the agent flags only the real gaps.",
+  "expected_findings": [
+    {
+      "check_type": "breach_notification",
+      "clause_title_contains": "PERSONAL DATA BREACHES",
+      "expected_flag": true,
+      "severity": "high",
+      "evidence_must_contain": "No specific notification deadline",
+      "reason": "Notification is optional timing ('at Processor's convenience') with no deadline — a classic breach-notice gap."
+    },
+    {
+      "check_type": "termination_data_return",
+      "clause_title_contains": "END OF PROCESSING",
+      "expected_flag": true,
+      "severity": "high",
+      "evidence_must_contain": "not required to return or securely delete",
+      "reason": "At end of processing, backups may retain data and return/delete is disclaimed."
+    }
+  ],
+  "expected_no_flag": [
+    {
+      "check_type": "subprocessor",
+      "clause_title_contains": "SUBPROCESSORS",
+      "reason": "Prior written approval + 30-day notice before new subprocessors — adequate for this first-pass check."
+    },
+    {
+      "check_type": "data_retention",
+      "clause_title_contains": "RETENTION AND DELETION",
+      "reason": "Term-limited retention plus deletion on request — should not flag as a retention gap."
+    },
+    {
+      "check_type": "liability_cap",
+      "clause_title_contains": "LIMITATION OF LIABILITY",
+      "reason": "Clear 12-month fees cap is present — liability_cap should not flag a gap."
+    }
+  ]
+}

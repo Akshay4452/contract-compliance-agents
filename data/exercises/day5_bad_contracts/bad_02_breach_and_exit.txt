@@ -1,0 +1,22 @@
+DATA PROCESSING ADDENDUM
+(Synthetic bad contract for Day 5 testing — not a real legal instrument.)
+
+This DPA forms part of the Services Agreement between Customer and SafeHost Ltd. ("Processor").
+
+1. PURPOSE.
+Processor processes Customer personal data only to provide the hosted analytics Service described in the Order Form.
+
+2. SUBPROCESSORS.
+Processor shall not engage a subprocessor to process Customer personal data without prior written approval from Customer, except for infrastructure providers listed in Schedule A (currently Amazon Web Services). Processor will give Customer at least thirty (30) days' prior written notice before adding a new subprocessor.
+
+3. RETENTION AND DELETION.
+Processor shall retain Customer personal data only for the term of the Services. Within thirty (30) days after Customer requests deletion, Processor shall delete Customer personal data from active systems, except where retention is required by applicable law.
+
+4. PERSONAL DATA BREACHES.
+If Processor becomes aware of a personal data breach, Processor may notify Customer at Processor's convenience. No specific notification deadline applies.
+
+5. LIMITATION OF LIABILITY.
+Processor's total aggregate liability arising out of or related to this DPA shall not exceed the fees paid by Customer to Processor in the twelve (12) months preceding the claim.
+
+6. END OF PROCESSING.
+When this DPA ends, Processor's security obligations survive for one (1) year. Processor may keep copies of Customer personal data in routine backups and is not required to return or securely delete that data upon Customer's written request.

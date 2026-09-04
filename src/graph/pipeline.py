@@ -1,14 +1,17 @@
-"""Compile and run the linear Day 4 LangGraph pipeline."""
+"""Compile and run the linear LangGraph pipeline."""
 
 from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
 
+from dotenv import load_dotenv
 from langgraph.graph import END, START, StateGraph
 
 from src.graph import nodes
 from src.graph.state import ComplianceState
+
+ROOT = Path(__file__).resolve().parents[2]
 
 
 def build_graph():
@@ -42,7 +45,17 @@ def initial_state(contract_path: Path | str) -> ComplianceState:
     }
 
 
-def run_contract(contract_path: Path | str) -> dict[str, Any]:
+def run_contract(
+    contract_path: Path | str,
+    *,
+    max_clauses: int | None = None,
+    top_k: int | None = None,
+) -> dict[str, Any]:
     """Invoke the compiled graph on one ``.txt`` contract."""
-    app = build_graph()
-    return app.invoke(initial_state(contract_path))
+    load_dotenv(ROOT / ".env")
+    nodes.set_compliance_options(max_clauses=max_clauses, top_k=top_k)
+    try:
+        app = build_graph()
+        return app.invoke(initial_state(contract_path))
+    finally:
+        nodes.clear_compliance_options()
