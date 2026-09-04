@@ -50,12 +50,15 @@ def run_contract(
     *,
     max_clauses: int | None = None,
     top_k: int | None = None,
+    min_confidence: float | None = None,
 ) -> dict[str, Any]:
     """Invoke the compiled graph on one ``.txt`` contract."""
     load_dotenv(ROOT / ".env")
     nodes.set_compliance_options(max_clauses=max_clauses, top_k=top_k)
+    nodes.set_verifier_options(min_confidence=min_confidence)
     try:
         app = build_graph()
         return app.invoke(initial_state(contract_path))
     finally:
         nodes.clear_compliance_options()
+        nodes.clear_verifier_options()

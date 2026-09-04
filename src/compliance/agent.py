@@ -112,7 +112,7 @@ def analyze_clause_check(
         return None
 
     quote = (result.evidence_quote or "").strip()
-    # Early noise gate (full verifier arrives Day 6): require grounded quote.
+    # Early noise gate (Day 6 verifier also checks quotes + refs + confidence).
     if not quote or quote not in clause_text:
         logger.info(
             "drop_ungrounded_finding clause=%s check=%s quote=%r",

@@ -40,6 +40,8 @@ def _problematic_rows(clauses: list[dict], findings: list[dict]) -> list[dict]:
                 "evidence_quote": finding.get("evidence_quote"),
                 "regulation_ref": finding.get("regulation_ref"),
                 "finding_id": finding.get("finding_id"),
+                "verified": finding.get("verified"),
+                "reject_reason": finding.get("reject_reason"),
             }
         )
     rows.sort(key=lambda r: (str(r["clause_id"]), str(r["check_type"])))
@@ -81,6 +83,9 @@ def write_llm_results(
         "clause_count": len(clauses),
         "finding_count": len(findings),
         "verified_finding_count": len(result.get("verified_findings") or []),
+        "rejected_finding_count": sum(
+            1 for f in findings if f.get("verified") is False
+        ),
         "report": result.get("report"),
         "errors": result.get("errors") or [],
         "clauses": [
@@ -91,6 +96,9 @@ def write_llm_results(
             for c in clauses
         ],
         "problematic_clauses": _problematic_rows(clauses, findings),
+        "verified_findings": _problematic_rows(
+            clauses, result.get("verified_findings") or []
+        ),
     }
     path.write_text(
         json.dumps(report, indent=2, ensure_ascii=False) + "\n",
@@ -102,7 +110,10 @@ def write_llm_results(
 def main(argv: list[str] | None = None) -> None:
     load_dotenv(ROOT / ".env")
     parser = argparse.ArgumentParser(
-        description="Run the compliance LangGraph pipeline (Day 5: RAG + LLM findings).",
+        description=(
+            "Run the compliance LangGraph pipeline "
+            "(Day 5 RAG+LLM + Day 6 verifier gate)."
+        ),
     )
     parser.add_argument(
         "--contract",
@@ -126,6 +137,12 @@ def main(argv: list[str] | None = None) -> None:
         type=int,
         default=None,
         help="Override RAG top_k from config/pipeline.yaml",
+    )
+    parser.add_argument(
+        "--min-confidence",
+        type=float,
+        default=None,
+        help="Override verifier min_confidence from config/pipeline.yaml",
     )
     parser.add_argument(
         "--preview-findings",
@@ -155,6 +172,7 @@ def main(argv: list[str] | None = None) -> None:
         path,
         max_clauses=args.max_clauses,
         top_k=args.top_k,
+        min_confidence=args.min_confidence,
     )
     doc = result.get("doc") or {}
     clauses = result.get("clauses") or []
@@ -206,10 +224,18 @@ def main(argv: list[str] | None = None) -> None:
         print()
         print(f"--- findings preview (up to {preview_n}) ---")
         for finding in findings[:preview_n]:
+            verified_flag = finding.get("verified")
+            reject = finding.get("reject_reason") or ""
+            gate = (
+                "verified"
+                if verified_flag
+                else f"rejected:{reject}" if verified_flag is False else "raw"
+            )
             print(
                 f"- {finding.get('finding_id')}  "
                 f"severity={finding.get('severity')}  "
-                f"conf={finding.get('confidence')}"
+                f"conf={finding.get('confidence')}  "
+                f"[{gate}]"
             )
             print(f"  issue: {finding.get('issue')}")
             quote = finding.get("evidence_quote") or ""
