@@ -4,7 +4,7 @@ Multi-agent contract review pipeline: segment clauses, check against GDPR corpus
 
 ## Plan
 
-The 14-day schedule (Days 1–6 done; Days 7–14 remaining) lives in [`docs/two_week_plan.md`](docs/two_week_plan.md). Use that file as the source of truth when picking up work.
+The 14-day schedule (Days 1–7 done; Days 8–14 remaining) lives in [`docs/two_week_plan.md`](docs/two_week_plan.md). Use that file as the source of truth when picking up work.
 
 ## Day 1 status
 
@@ -75,7 +75,24 @@ python -m unittest tests.test_verifier -v
 python scripts/verifier_smoke_test.py
 ```
 
-Report stub now summarizes verified vs rejected counts. Full Markdown audit report is Day 7.
+Report stub now summarizes verified vs rejected counts. Full Markdown packaging is Day 7 (done).
+
+## Day 7 status
+
+- [x] Reporter: `findings.json` + `audit_report.md` (exec summary, verified table, rejected appendix)
+- [x] Human gate: `pending_review` / `--auto-approve` → `approved`
+- [x] Artifacts under `data/exercises/day7_reporter/<doc_id>/`
+- [x] Offline smoke + live E2E (3 synthetic + 2 CUAD)
+
+```powershell
+python -m unittest tests.test_reporter -v
+python scripts/reporter_smoke_test.py
+python scripts/day7_e2e.py --skip-cuad
+# full E2E (needs OPENAI_API_KEY + CUAD):
+python scripts/day7_e2e.py --cuad-max-clauses 2
+```
+
+See [`docs/day7_changes.md`](docs/day7_changes.md) and `data/exercises/day7_reporter/README.md`.
 
 ## Quick start
 
@@ -94,9 +111,11 @@ python scripts/segment_smoke_test.py
 python scripts/compliance_smoke_test.py
 python scripts/verifier_smoke_test.py
 python -m unittest tests.test_verifier -v
+python scripts/reporter_smoke_test.py
+python -m unittest tests.test_reporter -v
 ```
 
-Day 5 live run (needs `OPENAI_API_KEY` in `.env`):
+Day 5–7 live run (needs `OPENAI_API_KEY` in `.env`):
 
 ```powershell
 copy .env.example .env
@@ -104,9 +123,11 @@ copy .env.example .env
 python run.py --contract data\exercises\day5_bad_contracts\bad_01_all_five_gaps.txt --preview-findings 20
 python run.py --contract data\exercises\day5_bad_contracts\bad_02_breach_and_exit.txt --preview-findings 20
 python run.py --contract data\exercises\day5_bad_contracts\bad_03_open_sharing.txt --preview-findings 20
+python scripts/day7_e2e.py --cuad-max-clauses 2
 ```
 
 See `data/exercises/day5_bad_contracts/README.md` for why each file is “bad.”
+Day 7 reports land in `data/exercises/day7_reporter/`.
 
 Single query against the persisted index:
 

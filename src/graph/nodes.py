@@ -1,4 +1,4 @@
-"""Graph nodes: ingest/segment + Day 5 compliance + Day 6 verifier; report still stub."""
+"""Graph nodes: ingest/segment + compliance + verifier + reporter."""
 
 from __future__ import annotations
 
@@ -7,6 +7,7 @@ from typing import Any
 
 from src.compliance.agent import run_compliance
 from src.graph.state import ComplianceState, DocumentPayload, ReportPayload
+from src.reporter.agent import run_reporter
 from src.segmenter.splitter import segment_text
 from src.segmenter.store import document_id_from_path
 from src.verifier.agent import run_verifier
@@ -14,6 +15,7 @@ from src.verifier.agent import run_verifier
 # Optional overrides set by CLI before invoke (keeps ComplianceState lean).
 _COMPLIANCE_OPTS: dict[str, Any] = {}
 _VERIFIER_OPTS: dict[str, Any] = {}
+_REPORTER_OPTS: dict[str, Any] = {}
 
 
 def set_compliance_options(**kwargs: Any) -> None:
@@ -34,6 +36,16 @@ def set_verifier_options(**kwargs: Any) -> None:
 
 def clear_verifier_options() -> None:
     _VERIFIER_OPTS.clear()
+
+
+def set_reporter_options(**kwargs: Any) -> None:
+    """Configure the next reporter run (auto_approve, out_dir, write)."""
+    _REPORTER_OPTS.clear()
+    _REPORTER_OPTS.update({k: v for k, v in kwargs.items() if v is not None})
+
+
+def clear_reporter_options() -> None:
+    _REPORTER_OPTS.clear()
 
 
 def ingest(state: ComplianceState) -> dict:
@@ -90,32 +102,37 @@ def verify(state: ComplianceState) -> dict:
 
 
 def report(state: ComplianceState) -> dict:
-    """Stub report over verified findings; Day 7 packages Markdown/JSON for real."""
-    raw = state.get("findings") or []
+    """Package ``findings.json`` + ``audit_report.md``; set human-gate status."""
+    doc = state.get("doc") or {}
+    clauses = state.get("clauses") or []
+    findings = state.get("findings") or []
     verified = state.get("verified_findings") or []
-    rejected = [f for f in raw if not f.get("verified")]
-    reason_counts: dict[str, int] = {}
-    for finding in rejected:
-        reason = str(finding.get("reject_reason") or "unknown")
-        reason_counts[reason] = reason_counts.get(reason, 0) + 1
-    reasons_line = ", ".join(
-        f"{k}={v}" for k, v in sorted(reason_counts.items())
-    ) or "none"
+    errors = state.get("errors") or []
 
-    payload: ReportPayload = {
-        "status": "pending_review",
-        "summary": (
-            f"Day 6: raw={len(raw)}, verified={len(verified)}, "
-            f"rejected={len(rejected)} ({reasons_line})."
-        ),
-        "finding_count": len(verified),
-        "markdown": (
-            "# Audit report (stub)\n\n"
-            f"Raw findings from compliance: {len(raw)}\n"
-            f"Verified findings: {len(verified)}\n"
-            f"Rejected: {len(rejected)} ({reasons_line})\n\n"
-            "Verifier is deterministic (quote + regulation_ref + confidence). "
-            "Full Markdown packaging arrives on Day 7.\n"
-        ),
-    }
-    return {"report": payload}
+    document_id = str(doc.get("document_id") or "unknown")
+    source_path = str(doc.get("source_path") or "")
+
+    opts = dict(_REPORTER_OPTS)
+    max_clauses = _COMPLIANCE_OPTS.get("max_clauses")
+    analyzed_clause_count: int | None = None
+    if max_clauses is not None:
+        try:
+            analyzed_clause_count = min(len(clauses), int(max_clauses))
+        except (TypeError, ValueError):
+            analyzed_clause_count = len(clauses)
+
+    payload, _findings_doc = run_reporter(
+        document_id=document_id,
+        source_path=source_path,
+        clauses=clauses,
+        findings=findings,
+        verified_findings=verified,
+        errors=errors,
+        auto_approve=bool(opts.get("auto_approve", False)),
+        write=bool(opts.get("write", True)),
+        out_dir=opts.get("out_dir"),
+        root=opts.get("root"),
+        analyzed_clause_count=analyzed_clause_count,
+    )
+    report_payload: ReportPayload = payload
+    return {"report": report_payload}

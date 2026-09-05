@@ -12,3 +12,7 @@ verifier:
   min_confidence: 0.5
   # Whitespace-normalized substring match when exact match fails
   fuzzy_quote: true
+
+# Day 7 — reporter artifacts (no LLM); human gate defaults to pending_review
+reporter:
+  output_dir: "data/exercises/day7_reporter"

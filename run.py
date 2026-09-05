@@ -112,7 +112,7 @@ def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(
         description=(
             "Run the compliance LangGraph pipeline "
-            "(Day 5 RAG+LLM + Day 6 verifier gate)."
+            "(compliance + verifier + Day 7 reporter)."
         ),
     )
     parser.add_argument(
@@ -145,6 +145,24 @@ def main(argv: list[str] | None = None) -> None:
         help="Override verifier min_confidence from config/pipeline.yaml",
     )
     parser.add_argument(
+        "--auto-approve",
+        action="store_true",
+        help="Set human-gate status to approved (eval / unattended runs)",
+    )
+    parser.add_argument(
+        "--out-dir",
+        type=Path,
+        default=None,
+        help="Parent dir for Day 7 artifacts "
+        "(writes <doc_id>/findings.json + audit_report.md). "
+        "Default: data/exercises/day7_reporter",
+    )
+    parser.add_argument(
+        "--no-report-files",
+        action="store_true",
+        help="Do not write findings.json / audit_report.md",
+    )
+    parser.add_argument(
         "--preview-findings",
         type=int,
         default=5,
@@ -173,6 +191,9 @@ def main(argv: list[str] | None = None) -> None:
         max_clauses=args.max_clauses,
         top_k=args.top_k,
         min_confidence=args.min_confidence,
+        auto_approve=args.auto_approve,
+        out_dir=args.out_dir,
+        write_report=not args.no_report_files,
     )
     doc = result.get("doc") or {}
     clauses = result.get("clauses") or []
@@ -208,6 +229,10 @@ def main(argv: list[str] | None = None) -> None:
     print(f"verified_findings={len(verified)}")
     print(f"report.status={report.get('status')}")
     print(f"report.summary={report.get('summary')}")
+    if report.get("audit_report_path"):
+        print(f"audit_report={report.get('audit_report_path')}")
+    if report.get("findings_json_path"):
+        print(f"findings_json={report.get('findings_json_path')}")
     if errors:
         print(f"errors={errors}")
     else:

@@ -14,6 +14,9 @@ data/processed/
 data/exercises/day5_bad_contracts/smoke_results.json
 data/exercises/day5_bad_contracts/*_llm_results.json
 data/exercises/day6_verifier/smoke_results.json
+data/exercises/day7_reporter/smoke_results.json
+data/exercises/day7_reporter/e2e_results.json
+data/exercises/day7_reporter/*/
 data/runs/
 
 .DS_Store

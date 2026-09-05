@@ -35,8 +35,9 @@ These are true of the repo today. Later days should follow them.
 - Do not put CUAD into Chroma. RAG retrieves GDPR rules from `.chroma/gdpr`.
 - Chunk length follows the embedding model's `max_seq_length` (256 WordPieces for `all-MiniLM-L6-v2`), not a hardcoded 500–800 words.
 - Clause segmentation is rule-based (`src/segmenter/`). Five-document store: `data/exercises/day3_segmentation/clauses.json`.
-- Day 4 LangGraph skeleton: `src/graph/` + `run.py`. Linear flow with real compliance (Day 5) and real verifier (Day 6); report still a stub until Day 7.
-- Day 5 compliance agent: `src/compliance/` — RAG + OpenAI structured output; one prompt / enum `check_type`; all 5 checks per clause. Verifier still stub.
+- Day 4 LangGraph skeleton: `src/graph/` + `run.py`. Linear flow with real compliance (Day 5), verifier (Day 6), and reporter (Day 7).
+- Day 5 compliance agent: `src/compliance/` — RAG + OpenAI structured output; one prompt / enum `check_type`; all 5 checks per clause.
+- Day 7 reporter: `src/reporter/` — `findings.json` + `audit_report.md` under `data/exercises/day7_reporter/`; human gate `pending_review` / `--auto-approve`.
 
 ---
 
@@ -185,10 +186,14 @@ Stack: Chroma + `sentence-transformers/all-MiniLM-L6-v2`. Chunk size is discover
 
 ### Day 7 — Reporter + human gate + end-to-end
 
-- [ ] Reporter node: `findings.json` + `audit_report.md` (executive summary, table of findings)
-- [ ] Human gate: `status: pending_review | approved` in output; optional `--auto-approve` for eval runs
-- [ ] Run full graph on 3 synthetic + 2 real templates
-- [ ] Fix bugs; add config for model, top_k, paths
+**Status: done**
+
+- [x] Reporter node: `findings.json` + `audit_report.md` (executive summary, table of findings + rejected appendix)
+- [x] Human gate: `status: pending_review | approved` in output; optional `--auto-approve` for eval runs
+- [x] Run full graph on 3 synthetic + 2 real templates (`scripts/day7_e2e.py`)
+- [x] Fix bugs; add config for model, top_k, paths (`reporter.output_dir`)
+
+**Shipped:** package `src/reporter/`; artifacts under `data/exercises/day7_reporter/`; offline smoke `scripts/reporter_smoke_test.py`; unit tests `tests/test_reporter.py`.
 
 **Learn (legal):** Read your own `audit_report.md` — only ask: “does evidence match text?” Red / yellow severity: missing DPA topic = high; vague wording = medium.
 

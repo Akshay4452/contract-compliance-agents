@@ -1,7 +1,7 @@
 """Shared graph state and shapes for the compliance pipeline.
 
 Day 4 declares the slots; Day 5 fills findings; Day 6 annotates verified_findings;
-Day 7 packages report.
+Day 7 packages the report (Markdown + findings.json).
 """
 
 from __future__ import annotations
@@ -34,12 +34,14 @@ class Finding(TypedDict, total=False):
 
 
 class ReportPayload(TypedDict, total=False):
-    """Reporter output + human gate (stub on Day 4; real packaging on Day 7)."""
+    """Reporter output + human gate (Day 7 packages Markdown/JSON artifacts)."""
 
     status: Literal["pending_review", "approved"]
     summary: str
     finding_count: int
     markdown: str
+    findings_json_path: str
+    audit_report_path: str
 
 
 class ComplianceState(TypedDict):
