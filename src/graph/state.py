@@ -1,6 +1,7 @@
 """Shared graph state and shapes for the compliance pipeline.
 
-Day 4 declares the slots; Days 5–7 fill findings / verified_findings / report.
+Day 4 declares the slots; Day 5 fills findings; Day 6 annotates verified_findings;
+Day 7 packages report.
 """
 
 from __future__ import annotations

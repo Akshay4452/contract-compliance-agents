@@ -4,7 +4,7 @@ Multi-agent contract review pipeline: segment clauses, check against GDPR corpus
 
 ## Plan
 
-The 14-day schedule (Days 1–5 done including bad-contract fixtures; Days 6–14 remaining) lives in [`docs/two_week_plan.md`](docs/two_week_plan.md). Use that file as the source of truth when picking up work.
+The 14-day schedule (Days 1–6 done; Days 7–14 remaining) lives in [`docs/two_week_plan.md`](docs/two_week_plan.md). Use that file as the source of truth when picking up work.
 
 ## Day 1 status
 
@@ -63,6 +63,20 @@ python run.py --contract data\exercises\day5_bad_contracts\bad_01_all_five_gaps.
 Writes `bad_01_all_five_gaps_llm_results.json` next to the contract (clause + why).
 Prompts live in `src/prompts/compliance_system.txt` and `compliance_user.txt`.
 
+## Day 6 status
+
+- [x] Verifier gate: quote ∈ clause, regulation_ref ∈ GDPR catalog, min confidence
+- [x] Annotates findings with `verified` / `reject_reason`; fills `verified_findings`
+- [x] Config: `verifier.min_confidence` / `fuzzy_quote` in `config/pipeline.yaml`
+- [x] Unit tests + offline smoke (no LLM)
+
+```powershell
+python -m unittest tests.test_verifier -v
+python scripts/verifier_smoke_test.py
+```
+
+Report stub now summarizes verified vs rejected counts. Full Markdown audit report is Day 7.
+
 ## Quick start
 
 ```powershell
@@ -78,6 +92,8 @@ python scripts/rag_smoke_test.py
 python scripts/segment_contracts.py
 python scripts/segment_smoke_test.py
 python scripts/compliance_smoke_test.py
+python scripts/verifier_smoke_test.py
+python -m unittest tests.test_verifier -v
 ```
 
 Day 5 live run (needs `OPENAI_API_KEY` in `.env`):

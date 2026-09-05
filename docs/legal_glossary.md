@@ -1,4 +1,4 @@
-# Legal Glossary (Day 1–5)
+# Legal Glossary (Day 1–6)
 
 Plain-English definitions for this project. You are **not** becoming a lawyer; you are building a **first-pass reviewer**.
 
@@ -19,6 +19,8 @@ Plain-English definitions for this project. You are **not** becoming a lawyer; y
 | **Personal data** | Information that can identify a person (name, email, ID, etc.) | The fields in a customer account profile |
 | **Processor** | Vendor that handles personal data on someone else’s instructions | The payroll company that runs HR’s file |
 | **Breach notification** | Duty to tell the customer (and sometimes regulators) after a personal-data incident | “Call us within 72 hours if the vault was opened” |
+| **Citation grounding** | The evidence quote must appear in the clause, and the regulation pointer must exist in the corpus — “show me the line” | Citing a textbook page you can actually open |
+| **Verified finding** | A finding that passed the Day 6 verifier gate (quote + ref + confidence) | Checklist item that still has the receipt attached |
 
 ## Day 3 — read real CUAD sections
 

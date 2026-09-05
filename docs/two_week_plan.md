@@ -35,7 +35,7 @@ These are true of the repo today. Later days should follow them.
 - Do not put CUAD into Chroma. RAG retrieves GDPR rules from `.chroma/gdpr`.
 - Chunk length follows the embedding model's `max_seq_length` (256 WordPieces for `all-MiniLM-L6-v2`), not a hardcoded 500–800 words.
 - Clause segmentation is rule-based (`src/segmenter/`). Five-document store: `data/exercises/day3_segmentation/clauses.json`.
-- Day 4 LangGraph skeleton: `src/graph/` + `run.py`. Linear flow with stub compliance/verify/report (empty findings).
+- Day 4 LangGraph skeleton: `src/graph/` + `run.py`. Linear flow with real compliance (Day 5) and real verifier (Day 6); report still a stub until Day 7.
 - Day 5 compliance agent: `src/compliance/` — RAG + OpenAI structured output; one prompt / enum `check_type`; all 5 checks per clause. Verifier still stub.
 
 ---
@@ -164,12 +164,16 @@ Stack: Chroma + `sentence-transformers/all-MiniLM-L6-v2`. Chunk size is discover
 
 ### Day 6 — Verifier agent (production mindset)
 
-- [ ] Verifier rules (no ML needed for v1):
-  - `evidence_quote` must be a substring of the clause (fuzzy match optional)
-  - `regulation_ref` must exist in the RAG corpus doc list
+**Status: done**
+
+- [x] Verifier rules (no ML needed for v1):
+  - `evidence_quote` must be a substring of the clause (whitespace-normalized fuzzy optional)
+  - `regulation_ref` must exist in the RAG corpus catalog (articles / topics / sources)
   - Drop finding if confidence is low or the quote fails
-- [ ] Add `verified: bool`, `reject_reason` on each finding
-- [ ] LangGraph: `compliance → verify → report_stub`
+- [x] Add `verified: bool`, `reject_reason` on each finding
+- [x] LangGraph: `compliance → verify → report_stub`
+
+**Shipped:** package `src/verifier/`; config under `verifier:` in `config/pipeline.yaml`; unit tests `tests/test_verifier.py`; offline smoke `scripts/verifier_smoke_test.py`.
 
 **Learn (legal):** Citation grounding = “show me the line” — same as citing a textbook page. This is how you evaluate without being a lawyer.
 
