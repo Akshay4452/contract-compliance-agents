@@ -1,0 +1,22 @@
+SOFTWARE SERVICES AGREEMENT
+(Synthetic golden contract — open sharing and weak breach notice.)
+
+This Agreement is between Customer and RelayNet Corp. ("Provider").
+
+1. PREAMBLE.
+Provider will host and operate the messaging platform for Customer.
+
+2. THIRD PARTY PROCESSORS.
+Provider may freely share Customer personal data with any vendor, affiliate, or partner Provider chooses, without prior notice to or approval by Customer.
+
+3. RETENTION POLICY.
+Provider deletes Customer personal data within ninety (90) days after the Services end, unless a longer period is required by law.
+
+4. INCIDENT HANDLING.
+If Provider learns of a personal data breach, Provider may inform Customer when convenient. There is no required notification deadline.
+
+5. DAMAGES CAP.
+Provider's total liability arising out of this Agreement shall not exceed twelve (12) months of fees paid by Customer immediately before the claim.
+
+6. DATA ON TERMINATION.
+On termination, Provider will return or delete Customer personal data within thirty (30) days after written request and certify deletion if asked.

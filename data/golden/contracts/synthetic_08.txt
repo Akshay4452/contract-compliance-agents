@@ -1,0 +1,25 @@
+PLATFORM TERMS
+(Synthetic golden contract — multiple medium-severity wording gaps.)
+
+Agreement between Customer and SoftHarbor Inc. ("Company").
+
+1. DEFINITIONS.
+Customer Data includes personal data submitted to the Platform.
+
+2. PAYMENT.
+Subscription fees are billed annually in advance.
+
+3. AFFILIATE SHARING.
+Company may transfer Customer personal data to affiliates for internal operations without seeking Customer approval, though Company will try to tell Customer afterward when practical.
+
+4. HOW LONG DATA STAYS.
+Company retains Customer personal data for as long as Company finds commercially useful for support history and has no fixed deletion schedule when the data is no longer needed for the Services.
+
+5. SECURITY EVENTS.
+Company will use reasonable efforts to handle security events. Notification of a personal data breach to Customer is discretionary and not time-bound.
+
+6. REMEDIES.
+Except as required by law, neither party states a maximum liability amount under this Agreement.
+
+7. AFTER TERMINATION.
+After the Agreement ends, Company has no obligation to return Customer personal data or to delete archived copies upon request.

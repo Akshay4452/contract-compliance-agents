@@ -1,0 +1,25 @@
+VENDOR CLOUD AGREEMENT
+(Synthetic golden contract — retention and liability gaps.)
+
+Agreement between Customer and KeepForever Systems, Inc. ("Vendor").
+
+1. SERVICES.
+Vendor provides hosted workflow software as described in the Order Form.
+
+2. FEES.
+Fees are due within forty-five (45) days of invoice and are non-refundable.
+
+3. SUBPROCESSORS.
+Vendor shall obtain Customer's prior written consent before appointing a subprocessor and will maintain an up-to-date subprocessor list.
+
+4. DATA RETENTION.
+Vendor may store Customer personal data indefinitely for product improvement and marketing analytics, with no obligation to delete when the data is no longer needed for the Services.
+
+5. SECURITY INCIDENTS.
+Vendor shall notify Customer of a confirmed personal data breach within forty-eight (48) hours and provide reasonable cooperation.
+
+6. LIABILITY.
+The parties' remedies are those available at law. This Agreement does not include any fees-based or dollar maximum liability cap.
+
+7. EXIT AND DATA.
+Upon termination, Vendor shall return or securely delete Customer personal data within thirty (30) days of Customer's written request, except copies retained solely as required by law.

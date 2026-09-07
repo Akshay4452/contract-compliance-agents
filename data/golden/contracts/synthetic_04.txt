@@ -1,0 +1,22 @@
+DATA PROCESSING ADDENDUM
+(Synthetic golden contract — mostly adequate controls.)
+
+This DPA is between Customer and CleanProcess GmbH ("Processor").
+
+1. DEFINITIONS.
+"Customer Data" means personal data Customer provides for processing under this DPA.
+
+2. SUBPROCESSORS.
+Processor shall not engage any subprocessor without Customer's prior written approval. Processor will provide thirty (30) days' advance written notice of any proposed new subprocessor and a mechanism for Customer to object.
+
+3. DATA RETENTION.
+Processor retains Customer Data only for the term of the Services and shall delete or return it when no longer needed for the contracted purpose, unless law requires longer retention.
+
+4. BREACH NOTIFICATION.
+Processor shall notify Customer of a personal data breach without undue delay and within seventy-two (72) hours of becoming aware, including known facts and mitigation steps.
+
+5. LIABILITY.
+Processor's aggregate liability under this DPA shall not exceed the fees paid by Customer in the twelve (12) months preceding the claim.
+
+6. RETURN OF DATA.
+Within thirty (30) days after termination, Processor shall return Customer Data in a commonly used format or securely delete it and certify deletion in writing upon request.

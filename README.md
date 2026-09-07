@@ -4,7 +4,7 @@ Multi-agent contract review pipeline: segment clauses, check against GDPR corpus
 
 ## Plan
 
-The 14-day schedule (Days 1–7 done; Days 8–14 remaining) lives in [`docs/two_week_plan.md`](docs/two_week_plan.md). Use that file as the source of truth when picking up work.
+The 14-day schedule (Days 1–8 done; Days 9–14 remaining) lives in [`docs/two_week_plan.md`](docs/two_week_plan.md). Use that file as the source of truth when picking up work.
 
 ## Day 1 status
 
@@ -94,6 +94,20 @@ python scripts/day7_e2e.py --cuad-max-clauses 2
 
 See [`docs/day7_changes.md`](docs/day7_changes.md) and `data/exercises/day7_reporter/README.md`.
 
+## Day 8 status
+
+- [x] Golden set: `data/golden/compliance_cases.jsonl` (50 rows) + 8 synthetic contracts
+- [x] Eval harness: `eval/run_eval.py` (segmentation / compliance P·R·F1 / quote_valid_rate)
+- [x] Baseline scores printed to console; JSON under `data/golden/baseline_results.json`
+
+```powershell
+python -m unittest tests.test_eval -v
+python eval/run_eval.py
+python eval/run_eval.py --mode live --max-clauses 3
+```
+
+See [`docs/day8_changes.md`](docs/day8_changes.md) and `data/golden/README.md`.
+
 ## Quick start
 
 ```powershell
@@ -113,6 +127,8 @@ python scripts/verifier_smoke_test.py
 python -m unittest tests.test_verifier -v
 python scripts/reporter_smoke_test.py
 python -m unittest tests.test_reporter -v
+python -m unittest tests.test_eval -v
+python eval/run_eval.py
 ```
 
 Day 5–7 live run (needs `OPENAI_API_KEY` in `.env`):
