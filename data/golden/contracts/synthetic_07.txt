@@ -1,0 +1,22 @@
+HOSTED ANALYTICS DPA
+(Synthetic golden contract — exit/return gap only.)
+
+Between Customer and MetricBox Ltd. ("Processor").
+
+1. SCOPE.
+Processor processes Customer personal data solely to deliver the analytics Service.
+
+2. SUBPROCESSOR CONTROLS.
+Processor will not engage subprocessors without prior written approval and will give thirty (30) days' notice before any change to the approved list.
+
+3. STORAGE LIMITATION.
+Processor keeps Customer personal data only while the Order Form is active and deletes it from production systems within thirty (30) days after Customer requests deletion.
+
+4. BREACH TIMING.
+Processor notifies Customer of personal data breaches without undue delay and within seventy-two (72) hours of awareness, with available details.
+
+5. LIABILITY LIMIT.
+Aggregate liability is capped at fees paid in the prior twelve (12) months, excluding willful misconduct.
+
+6. END OF ENGAGEMENT.
+When this DPA ends, Processor may retain Customer personal data in backups indefinitely and has no duty to return or delete that data at Customer's request.

@@ -38,6 +38,7 @@ These are true of the repo today. Later days should follow them.
 - Day 4 LangGraph skeleton: `src/graph/` + `run.py`. Linear flow with real compliance (Day 5), verifier (Day 6), and reporter (Day 7).
 - Day 5 compliance agent: `src/compliance/` — RAG + OpenAI structured output; one prompt / enum `check_type`; all 5 checks per clause.
 - Day 7 reporter: `src/reporter/` — `findings.json` + `audit_report.md` under `data/exercises/day7_reporter/`; human gate `pending_review` / `--auto-approve`.
+- Day 8 golden eval: `data/golden/compliance_cases.jsonl` (50 rows) + `eval/run_eval.py` (segmentation / compliance P-R-F1 / quote_valid_rate).
 
 ---
 
@@ -207,12 +208,14 @@ Stack: Chroma + `sentence-transformers/all-MiniLM-L6-v2`. Chunk size is discover
 
 ### Day 8 — Synthetic golden set + eval harness
 
-- [ ] Create `data/golden/compliance_cases.jsonl` — **40–50 rows**, for example:
+**Status: done**
+
+- [x] Create `data/golden/compliance_cases.jsonl` — **50 rows** (8 synthetic contracts), for example:
 
 ```json
 {
   "contract_id": "synthetic_01",
-  "clause_id": "c3",
+  "clause_id": "c4",
   "check_type": "subprocessor",
   "expected_flag": true,
   "expected_severity": "high",
@@ -220,11 +223,13 @@ Stack: Chroma + `sentence-transformers/all-MiniLM-L6-v2`. Chunk size is discover
 }
 ```
 
-- [ ] Build `eval/run_eval.py`:
+- [x] Build `eval/run_eval.py`:
   - Segmentation: clause count within tolerance vs CUAD spans (simple overlap)
   - Compliance: precision/recall on `expected_flag` per check_type
   - Verifier: % findings with valid quotes
-- [ ] Baseline scores logged to console
+- [x] Baseline scores logged to console
+
+**Shipped:** `data/golden/` (contracts + jsonl); package `eval/` (`golden`, `metrics`, `predictions`, `run_eval`); offline tests `tests/test_eval.py`. See [`docs/day8_changes.md`](day8_changes.md).
 
 **Learn (legal):** You author 10 synthetic cases yourself (you know ground truth). Use the assistant to help draft 30 more from templates; you verify each row.
 

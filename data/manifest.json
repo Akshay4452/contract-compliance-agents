@@ -30,7 +30,11 @@
     "synthetic_golden": {
       "purpose": "Hand-crafted violation cases where YOU define the answer",
       "local_path": "data/golden/",
-      "status": "pending_day8"
+      "status": "day8_ready",
+      "compliance_cases": "data/golden/compliance_cases.jsonl",
+      "row_count": 50,
+      "contracts": 8,
+      "eval_entrypoint": "eval/run_eval.py"
     }
   },
   "check_types_v1": [

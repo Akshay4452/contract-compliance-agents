@@ -18,6 +18,7 @@ data/exercises/day7_reporter/smoke_results.json
 data/exercises/day7_reporter/e2e_results.json
 data/exercises/day7_reporter/*/
 data/runs/
+data/golden/baseline_results.json
 
 .DS_Store
 Thumbs.db

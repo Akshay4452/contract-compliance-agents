@@ -1,0 +1,25 @@
+VENDOR SERVICES AGREEMENT
+(Synthetic bad contract for Day 5 testing — not a real legal instrument.)
+
+This Agreement is between Customer and VendorCloud Inc. ("Vendor").
+
+1. DEFINITIONS.
+"Customer Data" means personal data provided by Customer to Vendor for processing under this Agreement.
+
+2. FEES.
+Customer shall pay the fees set forth in the Order Form. Fees are due within thirty (30) days of invoice. Late amounts accrue interest at one and one-half percent (1.5%) per month.
+
+3. SUBPROCESSORS.
+Vendor may engage any third party to process Customer Data without prior notice to or approval by Customer.
+
+4. DATA RETENTION.
+Vendor may retain Customer Data for as long as Vendor deems useful for its business purposes and is not required to delete such data when it is no longer needed for the Services.
+
+5. SECURITY INCIDENTS.
+Vendor will use commercially reasonable efforts to address security issues from time to time. This Agreement does not require Vendor to notify Customer of any personal data breach.
+
+6. LIABILITY.
+Each party's remedies under this Agreement are limited to those available at law. This Agreement does not state any maximum liability amount or fees-based cap.
+
+7. TERMINATION AND CUSTOMER DATA.
+Upon termination, Vendor's confidentiality obligations survive. Customer Data already in Vendor's systems may remain in archived backups indefinitely, and Vendor has no obligation to return or delete Customer Data at Customer's request.

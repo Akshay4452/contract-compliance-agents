@@ -1,0 +1,8 @@
+{"contract_id":"synthetic_01","expected_clause_count":8,"tolerance":0,"source":"synthetic","notes":"numbered MSA headings"}
+{"contract_id":"synthetic_02","expected_clause_count":7,"tolerance":0,"source":"synthetic","notes":"DPA with numbered sections"}
+{"contract_id":"synthetic_03","expected_clause_count":8,"tolerance":0,"source":"synthetic","notes":"MSA with numbered sections"}
+{"contract_id":"synthetic_04","expected_clause_count":7,"tolerance":0,"source":"synthetic","notes":"clean DPA"}
+{"contract_id":"synthetic_05","expected_clause_count":8,"tolerance":0,"source":"synthetic","notes":"retention + liability gaps"}
+{"contract_id":"synthetic_06","expected_clause_count":7,"tolerance":0,"source":"synthetic","notes":"sharing + breach gaps"}
+{"contract_id":"synthetic_07","expected_clause_count":7,"tolerance":0,"source":"synthetic","notes":"exit gap only"}
+{"contract_id":"synthetic_08","expected_clause_count":8,"tolerance":0,"source":"synthetic","notes":"multi medium gaps"}
