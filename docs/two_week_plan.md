@@ -39,6 +39,7 @@ These are true of the repo today. Later days should follow them.
 - Day 5 compliance agent: `src/compliance/` — RAG + OpenAI structured output; one prompt / enum `check_type`; all 5 checks per clause.
 - Day 7 reporter: `src/reporter/` — `findings.json` + `audit_report.md` under `data/exercises/day7_reporter/`; human gate `pending_review` / `--auto-approve`.
 - Day 8 golden eval: `data/golden/compliance_cases.jsonl` (47 rows) + `eval/run_eval.py` (compliance P/R, quote_valid_rate, CUAD segmentation overlap).
+- Day 9 MLflow: `eval/run_eval.py --mlflow` + `eval/compare_runs.py` (local SQLite under `mlruns/`).
 
 ---
 
@@ -236,14 +237,26 @@ py -3 eval/run_eval.py --live --auto-approve
 
 ### Day 9 — MLflow
 
-- [ ] Log params: `model`, `top_k`, `prompt_version`, `check_types`
-- [ ] Log metrics: `precision`, `recall`, `f1`, `quote_valid_rate`, `latency_p95`
-- [ ] Log artifact: `audit_report.md`, `findings.json`
-- [ ] `eval/compare_runs.py` — compare prompt v1 vs v2
+**Status: done**
+
+- [x] Log params: `model`, `top_k`, `prompt_version`, `check_types`
+- [x] Log metrics: `precision`, `recall`, `f1`, `quote_valid_rate`, `latency_p95`
+- [x] Log artifact: `audit_report.md`, `findings.json` (+ `eval_report.json`)
+- [x] `eval/compare_runs.py` — compare prompt v1 vs v2 / different `top_k`
+
+**Shipped:** `eval/mlflow_tracking.py`, MLflow hooks in `eval/run_eval.py`, local `./mlruns`,
+`docs/day9_changes.md`.
 
 **Learn (tech):** MLflow for eval experiments, not model training.
 
 **Deliverable:** 3 MLflow runs with different `top_k` or prompt tweak.
+
+```powershell
+py -3 eval/run_eval.py --oracle --skip-segmentation --mlflow --top-k 3 --run-name top_k_3
+py -3 eval/run_eval.py --oracle --skip-segmentation --mlflow --top-k 5 --run-name top_k_5
+py -3 eval/run_eval.py --oracle --skip-segmentation --mlflow --top-k 8 --run-name top_k_8
+py -3 eval/compare_runs.py --param top_k
+```
 
 ---
 

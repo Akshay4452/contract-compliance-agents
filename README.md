@@ -4,7 +4,7 @@ Multi-agent contract review pipeline: segment clauses, check against GDPR corpus
 
 ## Plan
 
-The 14-day schedule (Days 1–7 done; Days 8–14 remaining) lives in [`docs/two_week_plan.md`](docs/two_week_plan.md). Use that file as the source of truth when picking up work.
+The 14-day schedule (Days 1–9 done; Days 10–14 remaining) lives in [`docs/two_week_plan.md`](docs/two_week_plan.md). Use that file as the source of truth when picking up work.
 
 ## Day 1 status
 
@@ -93,6 +93,30 @@ python scripts/day7_e2e.py --cuad-max-clauses 2
 ```
 
 See [`docs/day7_changes.md`](docs/day7_changes.md) and `data/exercises/day7_reporter/README.md`.
+
+## Day 8 status
+
+- [x] Golden set `data/golden/compliance_cases.jsonl` + eval harness `eval/`
+- [x] Compliance P/R/F1, quote_valid_rate, CUAD segmentation overlap
+
+See [`docs/day8_changes.md`](docs/day8_changes.md).
+
+## Day 9 status
+
+- [x] MLflow logging from `eval/run_eval.py --mlflow` (params, metrics, artifacts)
+- [x] `eval/compare_runs.py` for prompt / top_k experiment comparison
+- [x] Local store `./mlruns` (gitignored)
+
+```powershell
+pip install -r requirements.txt
+python -m unittest tests.test_eval -v
+python eval/run_eval.py --oracle --skip-segmentation --mlflow --top-k 3 --run-name top_k_3
+python eval/run_eval.py --oracle --skip-segmentation --mlflow --top-k 5 --run-name top_k_5
+python eval/run_eval.py --oracle --skip-segmentation --mlflow --top-k 8 --run-name top_k_8
+python eval/compare_runs.py --param top_k
+```
+
+See [`docs/day9_changes.md`](docs/day9_changes.md).
 
 ## Quick start
 

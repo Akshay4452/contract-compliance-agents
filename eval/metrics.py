@@ -148,3 +148,22 @@ def fmt_rate(value: float | None, digits: int = 3) -> str:
     if value is None:
         return "n/a"
     return f"{value:.{digits}f}"
+
+
+def percentile(values: list[float], p: float) -> float | None:
+    """Nearest-rank percentile for ``p`` in ``[0, 100]`` (inclusive)."""
+    if not values:
+        return None
+    if p < 0 or p > 100:
+        raise ValueError(f"percentile must be in [0, 100], got {p}")
+    ordered = sorted(float(v) for v in values)
+    if len(ordered) == 1:
+        return ordered[0]
+    # Nearest-rank: index = ceil(p/100 * n) - 1
+    rank = max(1, int((p / 100.0) * len(ordered) + 0.999999999))
+    return ordered[min(rank, len(ordered)) - 1]
+
+
+def latency_p95(latencies_sec: list[float]) -> float | None:
+    """P95 wall-clock seconds across per-contract (or per-run) timings."""
+    return percentile(latencies_sec, 95.0)

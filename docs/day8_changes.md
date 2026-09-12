@@ -33,6 +33,6 @@ Without it, segmentation baselines still print; compliance/verifier need `--live
 
 ## Not this day
 
-- MLflow experiment tracking (Day 9)
+- ~~MLflow experiment tracking (Day 9)~~ — done; see `docs/day9_changes.md`
 - OpenTelemetry traces (Day 10)
 - CUAD subset tuning / F1 targets (Day 11)

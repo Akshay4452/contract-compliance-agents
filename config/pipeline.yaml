@@ -4,6 +4,8 @@ compliance:
   model: "gpt-4o-mini"
   temperature: 0
   top_k: 5
+  # Bump when editing src/prompts/compliance_*.txt (logged to MLflow)
+  prompt_version: "v1"
   # Optional cap for smoke runs; omit or null = all clauses
   # max_clauses: 1
 
@@ -25,3 +27,10 @@ eval:
   report_dir: "data/exercises/day8_eval/reports"
   cuad_limit: 5
   clause_count_tolerance: 0.25
+
+# Day 9 — MLflow experiment tracking (eval metrics, not training)
+mlflow:
+  enabled: false
+  experiment_name: "contract-compliance-eval"
+  # SQLite under mlruns/ (gitignored). Bare path "mlruns" → mlruns/tracking.db.
+  tracking_uri: "mlruns"

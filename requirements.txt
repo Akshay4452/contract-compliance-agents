@@ -19,3 +19,6 @@ langchain-core>=0.3.0
 langchain-openai>=0.2.0
 openai>=1.40.0
 pydantic>=2.0.0
+
+# Day 9 — eval experiment tracking
+mlflow>=2.14.0

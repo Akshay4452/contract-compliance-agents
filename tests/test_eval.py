@@ -193,5 +193,172 @@ class CliSmokeTests(unittest.TestCase):
             self.assertEqual(payload["compliance_eval"]["status"], "skipped")
 
 
+class LatencyMetricTests(unittest.TestCase):
+    def test_percentile_and_p95(self) -> None:
+        from eval.metrics import latency_p95, percentile
+
+        values = [1.0, 2.0, 3.0, 4.0, 100.0]
+        self.assertEqual(percentile([], 95), None)
+        self.assertAlmostEqual(percentile([7.0], 95) or 0, 7.0)
+        self.assertAlmostEqual(latency_p95(values) or 0, 100.0)
+        self.assertAlmostEqual(percentile([1, 2, 3, 4], 50) or 0, 2.0)
+
+
+class MLflowTrackingTests(unittest.TestCase):
+    def test_resolve_params_and_extract_metrics(self) -> None:
+        from eval.mlflow_tracking import extract_eval_metrics, resolve_eval_params
+
+        params = resolve_eval_params(
+            {"compliance": {"model": "gpt-4o-mini", "top_k": 5, "prompt_version": "v1"}},
+            top_k=3,
+            prompt_version="v2",
+        )
+        self.assertEqual(params["top_k"], "3")
+        self.assertEqual(params["prompt_version"], "v2")
+        self.assertEqual(params["model"], "gpt-4o-mini")
+        self.assertIn("subprocessor", params["check_types"])
+
+        report = {
+            "compliance_eval": {
+                "compliance": {
+                    "overall": {"precision": 0.5, "recall": 1.0, "f1": 2 / 3}
+                },
+                "verifier": {"quote_valid_rate": 0.9},
+            },
+            "latency": {"p95_sec": 12.5},
+        }
+        metrics = extract_eval_metrics(report)
+        self.assertAlmostEqual(metrics["precision"], 0.5)
+        self.assertAlmostEqual(metrics["recall"], 1.0)
+        self.assertAlmostEqual(metrics["quote_valid_rate"], 0.9)
+        self.assertAlmostEqual(metrics["latency_p95"], 12.5)
+
+    def test_oracle_logs_mlflow_run(self) -> None:
+        try:
+            import mlflow  # noqa: F401
+        except ImportError:
+            self.skipTest("mlflow not installed")
+
+        from eval.compare_runs import fetch_runs
+        from eval.run_eval import main
+
+        with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
+            tmp_path = Path(tmp)
+            out = tmp_path / "eval.json"
+            tracking = tmp_path / "mlruns"
+            experiment = "day9-unit-test"
+            code = main(
+                [
+                    "--oracle",
+                    "--skip-segmentation",
+                    "--mlflow",
+                    "--experiment",
+                    experiment,
+                    "--run-name",
+                    "oracle_topk3",
+                    "--top-k",
+                    "3",
+                    "--prompt-version",
+                    "v1",
+                    "--tracking-uri",
+                    str(tracking),
+                    "--out",
+                    str(out),
+                    "--report-dir",
+                    str(tmp_path / "reports"),
+                ]
+            )
+            self.assertEqual(code, 0)
+            payload = json.loads(out.read_text(encoding="utf-8"))
+            self.assertIn("mlflow_run_id", payload)
+            self.assertEqual(payload["params"]["top_k"], "3")
+            self.assertEqual(payload["params"]["prompt_version"], "v1")
+            self.assertIn("latency", payload)
+
+            # Second run with different top_k for compare_runs.
+            code2 = main(
+                [
+                    "--oracle",
+                    "--skip-segmentation",
+                    "--mlflow",
+                    "--experiment",
+                    experiment,
+                    "--run-name",
+                    "oracle_topk8",
+                    "--top-k",
+                    "8",
+                    "--prompt-version",
+                    "v2",
+                    "--tracking-uri",
+                    str(tracking),
+                    "--out",
+                    str(tmp_path / "eval2.json"),
+                    "--report-dir",
+                    str(tmp_path / "reports2"),
+                ]
+            )
+            self.assertEqual(code2, 0)
+
+            rows = fetch_runs(
+                experiment_name=experiment,
+                tracking_uri=str(tracking),
+                max_runs=10,
+            )
+            self.assertGreaterEqual(len(rows), 2)
+            top_ks = {str(r.get("top_k")) for r in rows}
+            self.assertIn("3", top_ks)
+            self.assertIn("8", top_ks)
+            for row in rows:
+                self.assertAlmostEqual(row.get("f1") or 0, 1.0)
+
+    def test_compare_runs_cli(self) -> None:
+        try:
+            import mlflow  # noqa: F401
+        except ImportError:
+            self.skipTest("mlflow not installed")
+
+        from eval.compare_runs import main as compare_main
+        from eval.run_eval import main as eval_main
+
+        with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
+            tmp_path = Path(tmp)
+            tracking = tmp_path / "mlruns"
+            experiment = "day9-compare-cli"
+            for top_k, name in ((3, "a"), (5, "b"), (8, "c")):
+                code = eval_main(
+                    [
+                        "--oracle",
+                        "--skip-segmentation",
+                        "--mlflow",
+                        "--experiment",
+                        experiment,
+                        "--run-name",
+                        name,
+                        "--top-k",
+                        str(top_k),
+                        "--tracking-uri",
+                        str(tracking),
+                        "--out",
+                        str(tmp_path / f"{name}.json"),
+                        "--report-dir",
+                        str(tmp_path / f"reports_{name}"),
+                    ]
+                )
+                self.assertEqual(code, 0)
+
+            code = compare_main(
+                [
+                    "--experiment",
+                    experiment,
+                    "--tracking-uri",
+                    str(tracking),
+                    "--param",
+                    "top_k",
+                    "--json",
+                ]
+            )
+            self.assertEqual(code, 0)
+
+
 if __name__ == "__main__":
     unittest.main()
