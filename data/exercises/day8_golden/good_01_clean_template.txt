@@ -1,0 +1,22 @@
+DATA PROCESSING ADDENDUM
+(Synthetic clean template for Day 8 golden eval — not a real legal instrument.)
+
+This DPA forms part of the Services Agreement between Customer and CleanProcess LLC ("Processor").
+
+1. PURPOSE.
+Processor processes Customer personal data only to provide the hosted services described in the Order Form and documented instructions from Customer.
+
+2. SUBPROCESSORS.
+Processor shall not engage a subprocessor to process Customer personal data without prior written approval from Customer. Processor will give Customer at least thirty (30) days' prior written notice before adding or replacing a subprocessor, and Customer may object on reasonable grounds.
+
+3. RETENTION AND DELETION.
+Processor shall retain Customer personal data only for the term of the Services. When personal data is no longer needed for the contracted purpose, or within thirty (30) days after Customer requests deletion, Processor shall delete it from active systems, except where retention is required by applicable law.
+
+4. PERSONAL DATA BREACHES.
+If Processor becomes aware of a personal data breach affecting Customer personal data, Processor shall notify Customer without undue delay and in any event within seventy-two (72) hours of becoming aware, and shall provide known facts about the breach.
+
+5. LIMITATION OF LIABILITY.
+Processor's total aggregate liability arising out of or related to this DPA shall not exceed the fees paid by Customer to Processor in the twelve (12) months preceding the claim.
+
+6. END OF PROCESSING.
+Within thirty (30) days after termination or Customer's written request, Processor shall return Customer personal data in a common machine-readable format or securely delete it, and shall certify deletion upon request, except for copies retained solely as required by law.

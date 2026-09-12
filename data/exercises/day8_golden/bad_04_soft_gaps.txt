@@ -1,0 +1,25 @@
+VENDOR PLATFORM AGREEMENT
+(Synthetic mixed-severity gaps for Day 8 golden eval — not a real legal instrument.)
+
+Agreement between Customer and SoftGap Systems, Inc. ("Vendor").
+
+1. SERVICES.
+Vendor will provide the SaaS platform described in the Order Form.
+
+2. FEES.
+Customer will pay fees in accordance with the Order Form. Fees are due within thirty (30) days of invoice.
+
+3. SUBPROCESSORS.
+Vendor may appoint subprocessors to process Customer personal data. Vendor will publish a current list on its trust page but is not required to seek Customer approval or provide advance notice before a new subprocessor begins processing.
+
+4. DATA RETENTION.
+Vendor retains Customer personal data for the longer of (a) the subscription term or (b) such longer period as Vendor's internal analytics roadmap requires. Deletion when data is no longer needed for the Services is not promised.
+
+5. SECURITY INCIDENTS.
+Vendor will investigate security incidents that may involve Customer personal data. Customer notification of a personal data breach is at Vendor's sole discretion and may occur after remediation is complete; no maximum notification window is stated.
+
+6. LIABILITY.
+Except for fraud, each party's liability under this Agreement is limited to direct damages only. This Agreement does not set any fees-based maximum aggregate liability amount.
+
+7. EXIT AND CUSTOMER DATA.
+After termination, Vendor's confidentiality duties survive. Archived Customer personal data may remain in Vendor backups, and Vendor is not obligated to return or securely delete Customer personal data upon Customer's request.

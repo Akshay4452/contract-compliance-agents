@@ -1,0 +1,5 @@
+bad-01-all-five-gaps: data/exercises/day5_bad_contracts/bad_01_all_five_gaps.txt
+bad-02-breach-and-exit: data/exercises/day5_bad_contracts/bad_02_breach_and_exit.txt
+bad-03-open-sharing: data/exercises/day5_bad_contracts/bad_03_open_sharing.txt
+good-01-clean-template: data/exercises/day8_golden/good_01_clean_template.txt
+bad-04-soft-gaps: data/exercises/day8_golden/bad_04_soft_gaps.txt

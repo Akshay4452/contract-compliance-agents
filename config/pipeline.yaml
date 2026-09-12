@@ -16,3 +16,12 @@ verifier:
 # Day 7 — reporter artifacts (no LLM); human gate defaults to pending_review
 reporter:
   output_dir: "data/exercises/day7_reporter"
+
+# Day 8 — golden eval harness (see eval/run_eval.py)
+eval:
+  golden_path: "data/golden/compliance_cases.jsonl"
+  contracts_index: "data/golden/contracts_index.yaml"
+  output_json: "data/exercises/day8_eval/last_eval.json"
+  report_dir: "data/exercises/day8_eval/reports"
+  cuad_limit: 5
+  clause_count_tolerance: 0.25

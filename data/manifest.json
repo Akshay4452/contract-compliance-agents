@@ -30,7 +30,10 @@
     "synthetic_golden": {
       "purpose": "Hand-crafted violation cases where YOU define the answer",
       "local_path": "data/golden/",
-      "status": "pending_day8"
+      "cases_jsonl": "data/golden/compliance_cases.jsonl",
+      "contracts_index": "data/golden/contracts_index.yaml",
+      "case_count": 47,
+      "status": "ready_day8"
     }
   },
   "check_types_v1": [

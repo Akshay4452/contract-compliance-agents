@@ -38,6 +38,7 @@ These are true of the repo today. Later days should follow them.
 - Day 4 LangGraph skeleton: `src/graph/` + `run.py`. Linear flow with real compliance (Day 5), verifier (Day 6), and reporter (Day 7).
 - Day 5 compliance agent: `src/compliance/` — RAG + OpenAI structured output; one prompt / enum `check_type`; all 5 checks per clause.
 - Day 7 reporter: `src/reporter/` — `findings.json` + `audit_report.md` under `data/exercises/day7_reporter/`; human gate `pending_review` / `--auto-approve`.
+- Day 8 golden eval: `data/golden/compliance_cases.jsonl` (47 rows) + `eval/run_eval.py` (compliance P/R, quote_valid_rate, CUAD segmentation overlap).
 
 ---
 
@@ -207,30 +208,29 @@ Stack: Chroma + `sentence-transformers/all-MiniLM-L6-v2`. Chunk size is discover
 
 ### Day 8 — Synthetic golden set + eval harness
 
-- [ ] Create `data/golden/compliance_cases.jsonl` — **40–50 rows**, for example:
+**Status: done**
 
-```json
-{
-  "contract_id": "synthetic_01",
-  "clause_id": "c3",
-  "check_type": "subprocessor",
-  "expected_flag": true,
-  "expected_severity": "high",
-  "notes": "removed approval requirement"
-}
-```
-
-- [ ] Build `eval/run_eval.py`:
+- [x] Create `data/golden/compliance_cases.jsonl` — **47 rows** across 5 synthetic contracts
+- [x] Build `eval/run_eval.py`:
   - Segmentation: clause count within tolerance vs CUAD spans (simple overlap)
   - Compliance: precision/recall on `expected_flag` per check_type
   - Verifier: % findings with valid quotes
-- [ ] Baseline scores logged to console
+- [x] Baseline scores logged to console (`--live`, `--oracle`, or `--predictions-dir`; segmentation always)
+
+**Shipped:** `data/golden/` + `data/exercises/day8_golden/`; package `eval/`; offline tests `tests/test_eval.py`.
 
 **Learn (legal):** You author 10 synthetic cases yourself (you know ground truth). Use the assistant to help draft 30 more from templates; you verify each row.
 
 **Learn (tech):** Golden set = contract between you and the system.
 
 **Deliverable:** First eval numbers (even if mediocre — trend matters).
+
+```powershell
+py -3 eval/run_eval.py --validate-only
+py -3 eval/run_eval.py --oracle
+py -3 eval/run_eval.py
+py -3 eval/run_eval.py --live --auto-approve
+```
 
 ---
 
