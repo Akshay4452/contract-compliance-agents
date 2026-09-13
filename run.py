@@ -180,6 +180,28 @@ def main(argv: list[str] | None = None) -> None:
         action="store_true",
         help="Do not write the LLM findings JSON report",
     )
+    parser.add_argument(
+        "--otel",
+        action="store_true",
+        help="Enable OpenTelemetry tracing for this run "
+        "(overrides otel.enabled=false in pipeline.yaml)",
+    )
+    parser.add_argument(
+        "--otel-exporter",
+        default=None,
+        help="console | otlp | file | console+otlp (default: config/pipeline.yaml)",
+    )
+    parser.add_argument(
+        "--otel-endpoint",
+        default=None,
+        help="OTLP HTTP traces endpoint (default: http://127.0.0.1:4318/v1/traces)",
+    )
+    parser.add_argument(
+        "--otel-export-path",
+        type=Path,
+        default=None,
+        help="JSONL span dump path (default: data/exercises/day10_otel/last_trace.jsonl)",
+    )
     args = parser.parse_args(argv)
 
     path = args.contract
@@ -194,6 +216,11 @@ def main(argv: list[str] | None = None) -> None:
         auto_approve=args.auto_approve,
         out_dir=args.out_dir,
         write_report=not args.no_report_files,
+        otel=True if args.otel else None,
+        otel_exporter=args.otel_exporter,
+        otel_endpoint=args.otel_endpoint,
+        otel_export_path=args.otel_export_path,
+        shutdown_otel=bool(args.otel),
     )
     doc = result.get("doc") or {}
     clauses = result.get("clauses") or []

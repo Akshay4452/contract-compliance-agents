@@ -34,3 +34,14 @@ mlflow:
   experiment_name: "contract-compliance-eval"
   # SQLite under mlruns/ (gitignored). Bare path "mlruns" → mlruns/tracking.db.
   tracking_uri: "mlruns"
+
+# Day 10 — OpenTelemetry (one trace = one contract run)
+otel:
+  enabled: false
+  service_name: "contract-compliance-agents"
+  # console | otlp | file | console+otlp (combine with +)
+  exporter: "console"
+  # Jaeger all-in-one OTLP HTTP default
+  endpoint: "http://127.0.0.1:4318/v1/traces"
+  # Always useful offline deliverable when tracing is on
+  export_path: "data/exercises/day10_otel/last_trace.jsonl"

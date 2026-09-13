@@ -8,6 +8,7 @@ from typing import Any
 
 import yaml
 
+from src.observability.otel import get_tracer, set_span_attributes
 from src.verifier.corpus import (
     CorpusCatalog,
     cached_corpus_catalog,
@@ -97,6 +98,7 @@ def run_verifier(
     min_confidence: float | None = None,
     fuzzy_quote: bool | None = None,
     root: Path | None = None,
+    doc_id: str | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """Annotate all findings; return ``(annotated_all, verified_only)``."""
     root = root or ROOT
@@ -116,27 +118,47 @@ def run_verifier(
     by_id = _clause_map(clauses)
     annotated: list[dict[str, Any]] = []
     verified: list[dict[str, Any]] = []
+    tracer = get_tracer()
 
+    # Group by clause so we emit one sub-span per clause (Day 10 plan).
+    by_clause: dict[str, list[dict[str, Any]]] = {}
     for finding in findings:
         clause_id = str(finding.get("clause_id") or "")
+        by_clause.setdefault(clause_id, []).append(finding)
+
+    for clause_id, group in by_clause.items():
         clause = by_id.get(clause_id)
         clause_text = None if clause is None else str(clause.get("text") or "")
-        row = verify_finding(
-            finding,
-            clause_text=clause_text,
-            catalog=catalog,
-            min_confidence=min_conf,
-            fuzzy_quote=fuzzy,
-        )
-        annotated.append(row)
-        if row.get("verified"):
-            verified.append(row)
-        else:
-            logger.info(
-                "reject finding_id=%s reason=%s",
-                row.get("finding_id"),
-                row.get("reject_reason"),
+        with tracer.start_as_current_span(f"verify.clause:{clause_id or 'unknown'}") as span:
+            set_span_attributes(
+                span,
+                {
+                    "agent": "verify",
+                    "doc_id": doc_id or "",
+                    "clause_id": clause_id,
+                    "findings_count": len(group),
+                },
             )
+            verified_here = 0
+            for finding in group:
+                row = verify_finding(
+                    finding,
+                    clause_text=clause_text,
+                    catalog=catalog,
+                    min_confidence=min_conf,
+                    fuzzy_quote=fuzzy,
+                )
+                annotated.append(row)
+                if row.get("verified"):
+                    verified.append(row)
+                    verified_here += 1
+                else:
+                    logger.info(
+                        "reject finding_id=%s reason=%s",
+                        row.get("finding_id"),
+                        row.get("reject_reason"),
+                    )
+            span.set_attribute("verified_count", verified_here)
 
     return annotated, verified
 

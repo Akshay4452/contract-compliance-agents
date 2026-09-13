@@ -40,6 +40,7 @@ These are true of the repo today. Later days should follow them.
 - Day 7 reporter: `src/reporter/` — `findings.json` + `audit_report.md` under `data/exercises/day7_reporter/`; human gate `pending_review` / `--auto-approve`.
 - Day 8 golden eval: `data/golden/compliance_cases.jsonl` (47 rows) + `eval/run_eval.py` (compliance P/R, quote_valid_rate, CUAD segmentation overlap).
 - Day 9 MLflow: `eval/run_eval.py --mlflow` + `eval/compare_runs.py` (local SQLite under `mlruns/`).
+- Day 10 OTel: `src/observability/otel.py` + `run.py --otel` (console / OTLP / JSONL under `data/exercises/day10_otel/`).
 
 ---
 
@@ -262,14 +263,26 @@ py -3 eval/compare_runs.py --param top_k
 
 ### Day 10 — OpenTelemetry
 
-- [ ] Trace span per graph node + per-clause sub-spans
-- [ ] Attributes: `doc_id`, `clause_id`, `agent`, `model`, `tokens`, `findings_count`
-- [ ] Export to Jaeger or OTLP → console (local Docker Jaeger if easy; else console exporter)
-- [ ] One trace = one contract run
+**Status: done**
+
+- [x] Trace span per graph node + per-clause sub-spans
+- [x] Attributes: `doc_id`, `clause_id`, `agent`, `model`, `tokens`, `findings_count`
+- [x] Export to Jaeger or OTLP → console (local Docker Jaeger if easy; else console exporter)
+- [x] One trace = one contract run
+
+**Shipped:** `src/observability/otel.py`, graph + compliance/verifier instrumentation,
+`otel:` in `config/pipeline.yaml`, `run.py --otel`, JSONL dump under
+`data/exercises/day10_otel/`, `docs/day10_changes.md`.
 
 **Learn (tech):** Distributed tracing for agents = debug multi-step failures.
 
 **Deliverable:** Screenshot or saved trace showing Segment → Compliance → Verify → Report.
+
+```powershell
+py -3 run.py --contract data\exercises\day5_bad_contracts\bad_01_all_five_gaps.txt `
+  --max-clauses 1 --otel --auto-approve --no-report-files
+Get-Content data\exercises\day10_otel\last_trace.jsonl | Select-Object -First 30
+```
 
 ---
 

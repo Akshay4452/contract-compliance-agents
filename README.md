@@ -4,7 +4,7 @@ Multi-agent contract review pipeline: segment clauses, check against GDPR corpus
 
 ## Plan
 
-The 14-day schedule (Days 1–9 done; Days 10–14 remaining) lives in [`docs/two_week_plan.md`](docs/two_week_plan.md). Use that file as the source of truth when picking up work.
+The 14-day schedule (Days 1–10 done; Days 11–14 remaining) lives in [`docs/two_week_plan.md`](docs/two_week_plan.md). Use that file as the source of truth when picking up work.
 
 ## Day 1 status
 
@@ -117,6 +117,20 @@ python eval/compare_runs.py --param top_k
 ```
 
 See [`docs/day9_changes.md`](docs/day9_changes.md).
+
+## Day 10 status
+
+- [x] OpenTelemetry: one trace per contract (`contract.run`)
+- [x] Spans per graph node + per-clause under compliance/verify
+- [x] Exporters: console, OTLP (Jaeger), JSONL dump
+
+```powershell
+pip install -r requirements.txt
+python -m unittest tests.test_otel -v
+python run.py --contract data\exercises\day5_bad_contracts\bad_01_all_five_gaps.txt --max-clauses 1 --otel --auto-approve --no-report-files
+```
+
+See [`docs/day10_changes.md`](docs/day10_changes.md).
 
 ## Quick start
 

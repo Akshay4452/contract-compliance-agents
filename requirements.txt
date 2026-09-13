@@ -7,18 +7,23 @@ python-dotenv>=1.0.0
 pyyaml>=6.0.0
 tqdm>=4.66.0
 
-# Day 2 — local GDPR RAG
+# Day 2 ? local GDPR RAG
 chromadb>=0.5.0
 sentence-transformers>=3.0.0
 
-# Day 4 — LangGraph skeleton
+# Day 4 ? LangGraph skeleton
 langgraph>=0.2.0
 langchain-core>=0.3.0
 
-# Day 5 — compliance agent (OpenAI structured output)
+# Day 5 ? compliance agent (OpenAI structured output)
 langchain-openai>=0.2.0
 openai>=1.40.0
 pydantic>=2.0.0
 
-# Day 9 — eval experiment tracking
+# Day 9 ? eval experiment tracking
 mlflow>=2.14.0
+
+# Day 10 ? OpenTelemetry traces (console / OTLP -> Jaeger)
+opentelemetry-api>=1.27.0
+opentelemetry-sdk>=1.27.0
+opentelemetry-exporter-otlp-proto-http>=1.27.0

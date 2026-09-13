@@ -16,6 +16,7 @@ from langchain_openai import ChatOpenAI
 from src.compliance.check_types import CHECK_TYPES, RAG_QUERIES, CheckType
 from src.compliance.models import ComplianceLLMResult
 from src.compliance.prompts import build_user_prompt, format_rag_hits, get_system_prompt
+from src.observability.otel import get_tracer, set_span_attributes, tokens_from_message
 from src.rag.retrieve import retrieve
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -79,6 +80,7 @@ def analyze_clause_check(
     llm: Any,
     top_k: int = 5,
     root: Path | None = None,
+    token_sink: list[int] | None = None,
 ) -> dict[str, Any] | None:
     """Run one check_type on one clause. Returns a finding dict only when flag=True."""
     clause_id = str(clause.get("id") or "unknown")
@@ -96,18 +98,37 @@ def analyze_clause_check(
         rag_block=rag_block,
     )
 
-    structured = llm.with_structured_output(ComplianceLLMResult)
-    raw = structured.invoke(
-        [
-            SystemMessage(content=get_system_prompt()),
-            HumanMessage(content=user_prompt),
-        ]
-    )
-    result = (
-        raw
-        if isinstance(raw, ComplianceLLMResult)
-        else ComplianceLLMResult.model_validate(raw)
-    )
+    messages = [
+        SystemMessage(content=get_system_prompt()),
+        HumanMessage(content=user_prompt),
+    ]
+    try:
+        structured = llm.with_structured_output(
+            ComplianceLLMResult, include_raw=True
+        )
+        raw = structured.invoke(messages)
+    except TypeError:
+        structured = llm.with_structured_output(ComplianceLLMResult)
+        raw = structured.invoke(messages)
+
+    if isinstance(raw, dict) and "parsed" in raw:
+        tokens = tokens_from_message(raw.get("raw"))
+        if tokens is not None and token_sink is not None:
+            token_sink.append(tokens)
+        parsed = raw.get("parsed")
+        if parsed is None:
+            return None
+        result = (
+            parsed
+            if isinstance(parsed, ComplianceLLMResult)
+            else ComplianceLLMResult.model_validate(parsed)
+        )
+    else:
+        result = (
+            raw
+            if isinstance(raw, ComplianceLLMResult)
+            else ComplianceLLMResult.model_validate(raw)
+        )
     if not result.flag:
         return None
 
@@ -143,12 +164,14 @@ def run_compliance(
     top_k: int | None = None,
     max_clauses: int | None = None,
     root: Path | None = None,
+    doc_id: str | None = None,
 ) -> tuple[list[dict[str, Any]], list[str]]:
     """Run all five checks on every clause. Returns (findings, errors)."""
     cfg = _compliance_cfg(root)
     k = int(top_k if top_k is not None else cfg.get("top_k", 5))
     limit = max_clauses if max_clauses is not None else cfg.get("max_clauses")
     limit_n = int(limit) if limit is not None else None
+    model_name = str(cfg.get("model") or "gpt-4o-mini")
 
     work = list(clauses)
     if limit_n is not None and limit_n >= 0:
@@ -161,22 +184,44 @@ def run_compliance(
 
     findings: list[dict[str, Any]] = []
     errors: list[str] = []
+    tracer = get_tracer()
     for clause in work:
         clause_id = str(clause.get("id") or "unknown")
-        for check_type in CHECK_TYPES:
-            try:
-                finding = analyze_clause_check(
-                    clause=clause,
-                    check_type=check_type,
-                    llm=model,
-                    top_k=k,
-                    root=root,
-                )
-            except Exception as exc:  # noqa: BLE001 — keep pipeline running
-                msg = f"compliance:{clause_id}:{check_type.value}: {exc}"
-                logger.exception(msg)
-                errors.append(msg)
-                continue
-            if finding is not None:
-                findings.append(finding)
+        clause_findings = 0
+        token_sink: list[int] = []
+        with tracer.start_as_current_span(f"compliance.clause:{clause_id}") as span:
+            set_span_attributes(
+                span,
+                {
+                    "agent": "compliance",
+                    "doc_id": doc_id or "",
+                    "clause_id": clause_id,
+                    "model": model_name,
+                },
+            )
+            for check_type in CHECK_TYPES:
+                try:
+                    finding = analyze_clause_check(
+                        clause=clause,
+                        check_type=check_type,
+                        llm=model,
+                        top_k=k,
+                        root=root,
+                        token_sink=token_sink,
+                    )
+                except Exception as exc:  # noqa: BLE001 — keep pipeline running
+                    msg = f"compliance:{clause_id}:{check_type.value}: {exc}"
+                    logger.exception(msg)
+                    errors.append(msg)
+                    continue
+                if finding is not None:
+                    findings.append(finding)
+                    clause_findings += 1
+            set_span_attributes(
+                span,
+                {
+                    "findings_count": clause_findings,
+                    "tokens": sum(token_sink) if token_sink else 0,
+                },
+            )
     return findings, errors

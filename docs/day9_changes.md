@@ -41,5 +41,5 @@ Bump `compliance.prompt_version` (or pass `--prompt-version v2`) when you edit
 
 ## Not this day
 
-- OpenTelemetry traces (Day 10)
+- OpenTelemetry traces — done; see `docs/day10_changes.md`
 - CUAD subset tuning / F1 targets (Day 11)

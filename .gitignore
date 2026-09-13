@@ -20,6 +20,7 @@ data/exercises/day7_reporter/*/
 data/exercises/day8_eval/last_eval.json
 data/exercises/day8_eval/reports/*/
 data/exercises/day9_eval/last_compare.json
+data/exercises/day10_otel/last_trace.jsonl
 data/runs/
 
 .DS_Store

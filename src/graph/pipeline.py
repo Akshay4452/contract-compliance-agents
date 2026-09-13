@@ -10,6 +10,13 @@ from langgraph.graph import END, START, StateGraph
 
 from src.graph import nodes
 from src.graph.state import ComplianceState
+from src.observability.otel import (
+    get_tracer,
+    set_span_attributes,
+    setup_tracing,
+    shutdown_tracing,
+)
+from src.segmenter.store import document_id_from_path
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -54,9 +61,33 @@ def run_contract(
     auto_approve: bool = False,
     out_dir: Path | str | None = None,
     write_report: bool = True,
+    otel: bool | None = None,
+    otel_exporter: str | None = None,
+    otel_endpoint: str | None = None,
+    otel_export_path: Path | str | None = None,
+    shutdown_otel: bool = False,
 ) -> dict[str, Any]:
-    """Invoke the compiled graph on one ``.txt`` contract."""
+    """Invoke the compiled graph on one ``.txt`` contract.
+
+    One OpenTelemetry trace = one contract run when OTel is enabled
+    (``otel=True`` or ``otel.enabled`` in ``config/pipeline.yaml``).
+    """
     load_dotenv(ROOT / ".env")
+    tracing_on = setup_tracing(
+        enabled=otel,
+        exporter=otel_exporter,
+        endpoint=otel_endpoint,
+        export_path=otel_export_path,
+        root=ROOT,
+    )
+
+    path = Path(contract_path)
+    doc_hint = document_id_from_path(path) if path.exists() else path.stem
+    from src.compliance.agent import load_pipeline_config
+
+    pipe = load_pipeline_config(ROOT)
+    model_name = str((pipe.get("compliance") or {}).get("model") or "gpt-4o-mini")
+
     nodes.set_compliance_options(max_clauses=max_clauses, top_k=top_k)
     nodes.set_verifier_options(min_confidence=min_confidence)
     nodes.set_reporter_options(
@@ -66,8 +97,40 @@ def run_contract(
     )
     try:
         app = build_graph()
-        return app.invoke(initial_state(contract_path))
+        state = initial_state(path)
+        if not tracing_on:
+            return app.invoke(state)
+
+        tracer = get_tracer()
+        with tracer.start_as_current_span("contract.run") as root_span:
+            set_span_attributes(
+                root_span,
+                {
+                    "agent": "pipeline",
+                    "doc_id": doc_hint,
+                    "contract_path": str(path),
+                    "model": model_name,
+                },
+            )
+            result = app.invoke(state)
+            doc = result.get("doc") or {}
+            findings = result.get("findings") or []
+            verified = result.get("verified_findings") or []
+            errors = result.get("errors") or []
+            set_span_attributes(
+                root_span,
+                {
+                    "doc_id": str(doc.get("document_id") or doc_hint),
+                    "clause_count": len(result.get("clauses") or []),
+                    "findings_count": len(findings),
+                    "verified_count": len(verified),
+                    "error_count": len(errors),
+                },
+            )
+            return result
     finally:
         nodes.clear_compliance_options()
         nodes.clear_verifier_options()
         nodes.clear_reporter_options()
+        if shutdown_otel:
+            shutdown_tracing()
